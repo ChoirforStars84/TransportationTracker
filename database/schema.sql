@@ -13,7 +13,7 @@ CREATE TABLE app_user (
   password varchar(32) NOT NULL,
   role varchar(32),
   salt varchar(255) NOT NULL,
-  phone_number int NULL
+  phone_number varchar(10) NULL
 );
 
 COMMIT;
