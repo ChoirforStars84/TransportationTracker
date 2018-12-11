@@ -23,8 +23,15 @@ public class transitStopReader {
 				String[] stopElements = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 				stopElements[9] = stopElements[9].replace("\"", "");
 				
-				stops.add(stopElements);
-				System.out.println(stopElements[9]);
+				String[] busLines = stopElements[9].split(",");
+				for(String busLine : busLines) {
+					busLine = busLine.trim();
+					stopElements[9] = busLine;
+					stops.add(stopElements);
+				}
+				
+				
+				System.out.println(stopElements[0] + " " + stopElements[1] + " " + stopElements[2] + " " + stopElements[3] + " " + stopElements[4] + " " + stopElements[5] + " " + stopElements[6] + " " + stopElements[7] + " " + stopElements[8] + " " + stopElements[9]);
 				
 				}
 				System.out.println(stops.size());
