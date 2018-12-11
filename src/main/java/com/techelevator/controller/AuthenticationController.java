@@ -29,16 +29,18 @@ public class AuthenticationController {
 	@RequestMapping(path="/login", method=RequestMethod.POST)
 	public String login(@RequestParam String userName, 
 						@RequestParam String password, 
-						@RequestParam(required=false) String destination,
+						//@RequestParam(required=false) String destination,
 						HttpSession session) {
 		if(userDAO.searchForUsernameAndPassword(userName, password)) {
 			session.setAttribute("currentUser", userDAO.getUserByUserName(userName));
 			
-			if(destination != null && ! destination.isEmpty()) {
+			/*if(destination != null && ! destination.isEmpty()) {
 				return "redirect:" + destination;
 			} else {
 				return "redirect:/users/"+userName;
-			}
+			}*/
+			
+			return "redirect:/login";		
 		} else {
 			return "redirect:/login";
 		}
