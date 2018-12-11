@@ -15,7 +15,7 @@
 				},
 				password : {
 					required : true,
-					minlength: 15,
+					minlength: 10,
 					capitals: true,
 				},
 				confirmPassword : {
