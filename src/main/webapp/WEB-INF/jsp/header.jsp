@@ -39,16 +39,22 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
-					<c:url var="homePageHref" value="/" />
-					<li><a href="${homePageHref}">Home</a></li>
+					<c:if test="${empty currentUser}">
+						<c:url var="homePageHref" value="/" />
+						<li><a href="${homePageHref}">Home</a></li>
+						<c:url var="planNewRouteHref" value="/planRoute" />
+						<li><a href="${dashboardHref}">Plan Your Route</a></li>
+					</c:if>
 					<c:if test="${not empty currentUser}">
-						<c:url var="dashboardHref" value="/users/${currentUser}" />
-						<li><a href="${dashboardHref}">Plan a New Route</a></li>
-						<c:url var="newMessageHref" value="/users/${currentUser}/messages/new" />
+						<c:url var="homePageHref" value="/" />
+						<li><a href="${homePageHref}">My Home Page</a></li>
+						<c:url var="planNewRouteHref" value="/planRoute" />
+						<li><a href="${planNewRouteHref}">Plan a New Route</a></li>
+						<c:url var="mySavedRoutesHref" value="/savedRoutes" />
 						<li><a href="${newMessageHref}">My Saved Routes</a></li>
-						<c:url var="somethingRef" value="/users/${currentUser}/messages/new" />
+						<c:url var="notificationSetupHref" value="/notification" />
 						<li><a href="${newMessageHref}">Notification Setup</a></li>
-						<c:url var="changePasswordHref" value="/users/${currentUser}/changePassword" />
+						<c:url var="changePasswordHref" value="/changePassword" />
 						<li><a href="${changePasswordHref}">Change Password</a></li>
 					</c:if>
 				</ul>
