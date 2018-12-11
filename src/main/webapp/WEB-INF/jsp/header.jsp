@@ -46,6 +46,8 @@
 						<li><a href="${dashboardHref}">Plan a New Route</a></li>
 						<c:url var="newMessageHref" value="/users/${currentUser}/messages/new" />
 						<li><a href="${newMessageHref}">My Saved Routes</a></li>
+						<c:url var="somethingRef" value="/users/${currentUser}/messages/new" />
+						<li><a href="${newMessageHref}">Notification Setup</a></li>
 						<c:url var="changePasswordHref" value="/users/${currentUser}/changePassword" />
 						<li><a href="${changePasswordHref}">Change Password</a></li>
 					</c:if>
@@ -70,6 +72,6 @@
 			</div>
 		</nav>
 		<c:if test="${not empty currentUser}">
-			<p id="currentUser">Current User: ${currentUser}</p>
+			<p id="currentUser">Current User: ${currentUser.userName}</p>
 		</c:if>		
 		<div class="container">

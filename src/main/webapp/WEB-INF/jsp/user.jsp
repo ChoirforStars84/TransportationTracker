@@ -1,17 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <c:import url="/WEB-INF/jsp/header.jsp" />
+
 <c:url var="cssHref" value="/site.css" />
 <link rel="stylesheet" type="text/css" href="${cssHref}">
     
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div id="userWelcome">
+<p id="welcomeMessage">Welcome back, ${currentUser.userName}!</p>
+<p id="noteToUser">This is your Bridge City Transit Tracker user page. Click on the links above to plan a new, save a new route to use later, manage how you receive route notifications, or manage your password.</p>
+</div>

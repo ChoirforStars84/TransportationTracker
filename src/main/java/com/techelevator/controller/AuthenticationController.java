@@ -40,7 +40,7 @@ public class AuthenticationController {
 				return "redirect:/users/"+userName;
 			}*/
 			
-			return "redirect:/login";		
+			return "user";		
 		} else {
 			return "redirect:/login";
 		}
