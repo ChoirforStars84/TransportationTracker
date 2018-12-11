@@ -34,7 +34,7 @@
 		<header>
 			<c:url var="homePageHref" value="/" />
 			<c:url var="imgSrc" value="/img/logo.jpg" />
-			<a href="${homePageHref}"><img src="${imgSrc}" class="img-responsive" /></a>
+			<a href="${homePageHref}"><img src="${imgSrc}" style="height: auto; width: 20%;" /></a>
 		</header>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
