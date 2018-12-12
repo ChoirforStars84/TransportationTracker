@@ -38,7 +38,7 @@ CREATE TABLE bus_stops (
 DROP TABLE IF EXISTS bus_lines;
 
 CREATE TABLE bus_lines (
-	num varchar(8) PRIMARY KEY,
+	number varchar(8) PRIMARY KEY,
 	name varchar(64)
 
 );
