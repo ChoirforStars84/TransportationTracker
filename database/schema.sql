@@ -19,15 +19,15 @@ CREATE TABLE app_user (
 DROP TABLE IF EXISTS bus_stops;
 
 CREATE TABLE bus_stops (
-  internalid varchar(8) PRIMARY KEY,
+  internalid varchar(16) PRIMARY KEY,
   name varchar(128) NOT NULL,
-  externalid varchar(8) NOT NULL,
+  externalid varchar(16) NOT NULL,
   direction varchar(16) NOT NULL,
   lat varchar(16) NOT NULL,
   long varchar(16) NOT NULL,
-  time_point varchar(8) NOT NULL,
-  newzone varchar(8) NOT NULL,
-  no_rts_served varchar(8) NOT NULL,
+  time_point varchar(16) NOT NULL,
+  newzone varchar(16) NOT NULL,
+  no_rts_served varchar(16) NOT NULL,
   routes varchar(128) NOT NULL, 
   mode varchar(16) NOT NULL,
   public_shelter varchar(32) NOT NULL,
