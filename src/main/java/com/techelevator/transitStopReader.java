@@ -13,6 +13,8 @@ public class transitStopReader {
 		File inputFile = getInputFileFromUser();
 		Scanner input = new Scanner(System.in);
 		List<String []> stops = new ArrayList<String[]>();
+		List<String []> stopToRoute = new ArrayList<String[]>();
+
 
 
 		
@@ -26,15 +28,30 @@ public class transitStopReader {
 				String[] busLines = stopElements[9].split(",");
 				for(String busLine : busLines) {
 					busLine = busLine.trim();
-					stopElements[9] = busLine;
-					stops.add(stopElements);
+					String[] mergeElements = {stopElements[0] , busLine};
+					stopToRoute.add(mergeElements);
 				}
+				String[] something = {stopElements[0] , stopElements[1] , stopElements[2] , stopElements[3] , stopElements[4] , stopElements[5] , stopElements[6] , stopElements[7] , stopElements[8] , stopElements[10] , stopElements[11] , stopElements[12]};
 				
-				
-				System.out.println(stopElements[0] + " " + stopElements[1] + " " + stopElements[2] + " " + stopElements[3] + " " + stopElements[4] + " " + stopElements[5] + " " + stopElements[6] + " " + stopElements[7] + " " + stopElements[8] + " " + stopElements[9]);
-				
+					stops.add(something);					
 				}
+			
+			for(String[] stop : stops) {
+				for(String stopElement : stop) {
+					System.out.print(stopElement + " ");
+				}
+				System.out.println("");				
+			}
+			
+			for(String[] n : stopToRoute) {
+				for(String e : n) {
+					System.out.print(e + " ");
+				}
+				System.out.println("");
+			}
+			
 				System.out.println(stops.size());
+				System.out.println(stopToRoute.size());
 			}
 		catch(FileNotFoundException e) {
 			System.out.println(e.getMessage());
