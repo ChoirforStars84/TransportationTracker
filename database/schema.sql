@@ -18,7 +18,7 @@ CREATE TABLE app_user (
 
 DROP TABLE IF EXISTS bus_stops;
 
-CREATE TABLE app_user (
+CREATE TABLE bus_stops (
   internalid varchar(8) PRIMARY KEY,
   name varchar(128) NOT NULL,
   externalid varchar(8) NOT NULL,
