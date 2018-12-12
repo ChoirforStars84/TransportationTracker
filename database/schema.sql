@@ -39,7 +39,10 @@ DROP TABLE IF EXISTS bus_lines;
 
 CREATE TABLE bus_lines (
 	number varchar(8) PRIMARY KEY,
-	name varchar(64)
+	name varchar(64) NOT NULL,
+	rtclr varchar(16) NULL,
+	rtdd varchar(8) NULL,
+	rtpidatafeed varchar(32) NULL
 
 );
 
@@ -48,8 +51,8 @@ CREATE TABLE bus_lines (
 DROP TABLE IF EXISTS stops_lines;
 
 CREATE TABLE stops_lines (
-	bus_line varchar(16),
-	stop_id varchar(8),
+	bus_line varchar(16) NOT NULL,
+	stop_id varchar(8) NOT NULL,
 	
 	constraint pk_stops_lines primary key (bus_line, stop_id),
     constraint fk_stops_lines_bus_line foreign key (bus_line) references bus_lines (number),
