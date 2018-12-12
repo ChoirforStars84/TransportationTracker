@@ -53,7 +53,7 @@ CREATE TABLE stops_lines (
 	
 	constraint pk_stops_lines primary key (bus_line, stop_id),
     constraint fk_stops_lines_bus_line foreign key (bus_line) references bus_lines (number),
-    constraint fk_stops_lines_stop_id foreign key (stop_id) references stops (internalid)
+    constraint fk_stops_lines_stop_id foreign key (stop_id) references bus_stops (internalid)
 
 );
 
