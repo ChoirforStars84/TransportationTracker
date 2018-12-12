@@ -7004,6 +7004,6 @@ VALUES ('S00010','10TH AVE AT ANN ST','11652.0','Inbound','40.406334','-79.90811
 ('X70013','WILLOW STATION','99906.0','Inbound','40.365524','-80.02597','Yes','1','2.0','BLUE','Light Rail','PAAC Shelter','Light Rail Station'),
 ('X70014','WILLOW STATION','99905.0','Outbound','40.365554','-80.02603','Yes','1','2.0','BLUE','Light Rail','PAAC Shelter','Light Rail Station'),
 ('P70020','WOOD STREET STATION','99993.0','Outbound','40.442286','-79.999569','Yes','Free','4.0','BLUE, RED','Light Rail','PAAC Shelter','Light Rail Station'),
-('P70021','WOOD STREET STATION','99992.0','Inbound','40.442355','-79.999515','Yes','Free','4.0','BLUE, RED','Light Rail','PAAC Shelter','Light Rail Station'),
+('P70021','WOOD STREET STATION','99992.0','Inbound','40.442355','-79.999515','Yes','Free','4.0','BLUE, RED','Light Rail','PAAC Shelter','Light Rail Station');
 
 COMMIT;
