@@ -10,8 +10,10 @@
 	    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.js "></script>
 	    <script src="https://cdn.jsdelivr.net/jquery.timeago/1.4.1/jquery.timeago.min.js"></script>
 	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	    <c:url var="cssHref" value="/site.css" />
-		<link rel="stylesheet" type="text/css" href="${cssHref}">
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css.map"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"></script>
+	    <link rel="stylesheet" href="css/site.css"></link>
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -32,9 +34,12 @@
 	</head>
 	<body>
 		<header>
-			<c:url var="homePageHref" value="/" />
-			<c:url var="imgSrc" value="/img/logo.jpg" />
-			<a href="${homePageHref}"><img src="${imgSrc}" style="height: auto; width: 20%;" /></a>
+		<div id="bannerLogoContainer">
+			<img id="bannerLogo" src="img/appLogo.jpg" alt="BCTT Logo">
+		</div>
+		<div id="banner">
+			<p id="siteTitle">Bridge City Transit Tracker</p>
+		</div>
 		</header>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -77,6 +82,12 @@
 				</ul>
 			</div>
 		</nav>
+		
+		<%-- <c:url var="imgSrc" value="/img/appLogo.jpg" />--%>
+		<c:url var="homePageHref" value="/" />
+			<a href="${homePageHref}"><img src="${imgSrc}" style="height: auto; width: 20%;" /></a>
+		
+		</div>
 		<c:if test="${not empty currentUser}">
 			<p id="currentUser">Current User: ${currentUser.userName}</p>
 		</c:if>		
