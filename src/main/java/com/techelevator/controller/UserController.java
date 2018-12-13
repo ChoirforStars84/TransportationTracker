@@ -26,7 +26,6 @@ public class UserController {
 	
 	@RequestMapping("/")
 	public String displayGreeting() {
-		
 		return "homePage";
 	}
 

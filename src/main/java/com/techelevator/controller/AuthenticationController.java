@@ -26,7 +26,7 @@ public class AuthenticationController {
 		return "login";
 	}
 	
-	@RequestMapping(path="/login", method=RequestMethod.POST)
+	@RequestMapping(path="/userHome", method=RequestMethod.POST)
 	public String login(@RequestParam String userName, 
 						@RequestParam String password, 
 						//@RequestParam(required=false) String destination,
@@ -40,7 +40,7 @@ public class AuthenticationController {
 				return "redirect:/users/"+userName;
 			}*/
 			
-			return "user";		
+			return "userHome";		
 		} else {
 			return "redirect:/login";
 		}

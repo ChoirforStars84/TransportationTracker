@@ -43,7 +43,7 @@
 						<c:url var="homePageHref" value="/" />
 						<li><a href="${homePageHref}">Home</a></li>
 						<c:url var="planNewRouteHref" value="/planRoute" />
-						<li><a href="${dashboardHref}">Plan Your Route</a></li>
+						<li><a href="${planNewRouteHref}">Plan Your Route</a></li>
 					</c:if>
 					<c:if test="${not empty currentUser}">
 						<c:url var="homePageHref" value="/" />
