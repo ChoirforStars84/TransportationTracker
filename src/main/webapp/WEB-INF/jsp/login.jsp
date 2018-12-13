@@ -28,7 +28,7 @@
 <div class="row">
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4">
-		<c:url var="formAction" value="/login" />
+		<c:url var="formAction" value="/userHome" />
 		<form method="POST" action="${formAction}">
 		<input type="hidden" name="destination" value="${param.destination}"/>
 		<input type="hidden" name="CSRF_TOKEN" value="${CSRF_TOKEN}"/>
