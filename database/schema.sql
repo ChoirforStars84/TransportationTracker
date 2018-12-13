@@ -19,15 +19,15 @@ CREATE TABLE app_user (
 DROP TABLE IF EXISTS bus_stops;
 
 CREATE TABLE bus_stops (
-  internalid varchar(8) PRIMARY KEY,
+  internalid varchar(16) PRIMARY KEY,
   name varchar(128) NOT NULL,
-  externalid varchar(8) NOT NULL,
+  externalid varchar(16) NOT NULL,
   direction varchar(16) NOT NULL,
   lat varchar(16) NOT NULL,
   long varchar(16) NOT NULL,
-  time_point varchar(8) NOT NULL,
-  newzone varchar(8) NOT NULL,
-  no_rts_served varchar(8) NOT NULL,
+  time_point varchar(16) NOT NULL,
+  newzone varchar(16) NOT NULL,
+  no_rts_served varchar(16) NOT NULL,
   routes varchar(128) NOT NULL, 
   mode varchar(16) NOT NULL,
   public_shelter varchar(32) NOT NULL,
@@ -39,7 +39,10 @@ DROP TABLE IF EXISTS bus_lines;
 
 CREATE TABLE bus_lines (
 	number varchar(8) PRIMARY KEY,
-	name varchar(64)
+	name varchar(64) NOT NULL,
+	rtclr varchar(16) NULL,
+	rtdd varchar(8) NULL,
+	rtpidatafeed varchar(32) NULL
 
 );
 
@@ -48,8 +51,9 @@ CREATE TABLE bus_lines (
 DROP TABLE IF EXISTS stops_lines;
 
 CREATE TABLE stops_lines (
-	bus_line varchar(16),
-	stop_id varchar(8),
+	stop_id varchar(8) NOT NULL,
+	bus_line varchar(16) NOT NULL,
+	
 	
 	constraint pk_stops_lines primary key (bus_line, stop_id),
     constraint fk_stops_lines_bus_line foreign key (bus_line) references bus_lines (number),
