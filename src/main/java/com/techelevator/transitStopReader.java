@@ -2,6 +2,9 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +13,8 @@ public class transitStopReader {
 	static List<String> answerKey = new ArrayList<String>();
 
 	public static void main(String[] args) {
-		File inputFile = getInputFileFromUser();
+		File inputFile = getInputFile();
+		File outputFile = getOutputFile();
 		Scanner input = new Scanner(System.in);
 		List<String []> stops = new ArrayList<String[]>();
 		List<String []> stopToRoute = new ArrayList<String[]>();
@@ -44,10 +48,11 @@ public class transitStopReader {
 			}
 			
 			for(String[] n : stopToRoute) {
-				for(String e : n) {
-					System.out.print(e + " ");
+				try(PrintWriter appendWriter = new PrintWriter(new FileWriter(outputFile, true));) {
+					appendWriter.println("('"+n[0]+"','"+n[1]+"'),");
+				}catch (IOException e) {
+					System.out.println(e.getMessage());
 				}
-				System.out.println("");
 			}
 			
 				System.out.println(stops.size());
@@ -61,9 +66,7 @@ public class transitStopReader {
 	
 
 		@SuppressWarnings("resource")
-		private static File getInputFileFromUser() {
-			Scanner userInput = new Scanner(System.in);
-			
+		private static File getInputFile() {			
 			String path = "src/main/resources/transitStops.txt";
 			
 			File inputFile = new File(path);
@@ -75,6 +78,22 @@ public class transitStopReader {
 				System.exit(1);
 			}
 			return inputFile;
+		}
+		
+		@SuppressWarnings("resource")
+		private static File getOutputFile() {
+			
+			String path = "src/main/resources/stopToRoute.txt";
+			
+			File outputFile = new File(path);
+			if(outputFile.exists() == false) { 
+				System.out.println(path+" does not exist");
+				System.exit(1); 
+			} else if(outputFile.isFile() == false) {
+				System.out.println(path+" is not a file");
+				System.exit(1);
+			}
+			return outputFile;
 		}
 
 }
