@@ -1,43 +1,84 @@
 package com.techelevator.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-
-public class JDBCRouteDAO {
+public class JDBCRouteDAO implements RouteDAO {
 	
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	public JDBCRouteDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
-	public Stop getStopByName(String stopName) {
-		Stop stop = new Stop();
-		String stopNameAllCaps = stopName.toUpperCase();
-		String sqlSearchStop = "SELECT * FROM bus_stops WHERE name = '?';";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchStop, stopNameAllCaps);
-		while (results.next()) {
-			stop.setInternalId(results.getString("internalid").toLowerCase());
-			stop.setName(results.getString("name"));
-			stop.setExternalId(results.getFloat("externalid"));
-			stop.setDirection(results.getString("direction"));
-			stop.setLatitude(results.getDouble("lat"));
-			stop.setLongitude(results.getDouble("long"));
-			stop.setTimePoint(results.getString("time_point"));
-			stop.setNewZone(results.getString("newzone"));
-			stop.setNumRoutesServed(results.getFloat("no_rts_served"));
-			stop.setRoutes(results.getString("routes"));
-			stop.setMode(results.getString("mode"));
-			stop.setShelter(results.getString("public_shelter"));
-			stop.setPublicStop(results.getString("public_stop"));
+
+	public Route getRouteByNumber(String routeNumber) {
+		Route route = new Route();
+		String routeNumberCaps = routeNumber.toUpperCase();
+		String sqlGetRoute = "SELECT * FROM bus_lines WHERE number = '?';";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetRoute, routeNumberCaps);
+		if(results.next()) {
+			route = mapSqlRowToRoute(results);
 		}
-		return null;
-		
+		return route;
 	}
 
+	public Route getRouteByName(String routeName) {
+		Route route = new Route();
+		String routeNameCaps = routeName.toUpperCase();
+		String sqlGetRoute = "SELECT * FROM bus_lines WHERE name = '?';";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetRoute, routeNameCaps);
+		if(results.next()) {
+			route = mapSqlRowToRoute(results);
+		}
+		return route;
+	}
+
+	public List<Route> getAllRoutes() {
+		List<Route> allRoutes = new ArrayList<Route>();
+		Route route = new Route();
+		String sqlGetAllRoutes = "SELECT * FROM bus_lines;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllRoutes);
+		while(results.next()) {
+			route = mapSqlRowToRoute(results);
+			allRoutes.add(route);
+		}
+		return allRoutes;
+	}
+
+	public List<String> getAllRouteNumsWithNamesOnly() {
+		List<String> allNumsNames = new ArrayList<String>();
+		String numAndName = null;
+		String sqlGetAllRoutes = "SELECT (number || name) AS num_and_name FROM bus_lines;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllRoutes);
+		while(results.next()) {
+			numAndName = results.getString("num_and_name");
+			allNumsNames.add(numAndName);
+		}
+		return null;
+	}
+
+	public List<Route> getAllRoutesAtStop(String stopName) {
+		List<Route> routesAtStop = new ArrayList<Route>();
+		String sqlGetRoutesAtStop = "SELECT * FROM bus_lines JOIN "
+		return null;
+	}
+
+	public Route mapSqlRowToRoute(SqlRowSet results) {
+		Route route = new Route();
+		route.setRouteNumber(results.getString("number"));
+		route.setRouteName(results.getString("name"));
+		route.setRouteColor(results.getString("rtclr"));
+		route.setRtdd(results.getString("rtdd"));
+		route.setRtpiDataFeed(results.getString("rtpidatafeed"));
+		return route;
+	}
+
+	
 }

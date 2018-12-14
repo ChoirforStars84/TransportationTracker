@@ -5,7 +5,13 @@
 BEGIN;
 
 -- CREATE statements go here
-DROP TABLE IF EXISTS app_user;
+DROP TABLE IF EXISTS app_user cascade;
+DROP TABLE IF EXISTS bus_stops cascade;
+DROP TABLE IF EXISTS bus_lines cascade;
+DROP TABLE IF EXISTS stops_lines cascade;
+DROP TABLE IF EXISTS saved_routes cascade;
+DROP TABLE IF EXISTS routes_users cascade;
+
 
 CREATE TABLE app_user (
   id SERIAL PRIMARY KEY,
@@ -16,7 +22,6 @@ CREATE TABLE app_user (
   phone_number varchar(10) NULL
 );
 
-DROP TABLE IF EXISTS bus_stops;
 
 CREATE TABLE bus_stops (
   internalid varchar(16) PRIMARY KEY,
@@ -35,7 +40,7 @@ CREATE TABLE bus_stops (
   
 );
 
-DROP TABLE IF EXISTS bus_lines;
+
 
 CREATE TABLE bus_lines (
 	number varchar(8) PRIMARY KEY,
@@ -48,7 +53,7 @@ CREATE TABLE bus_lines (
 
 
 
-DROP TABLE IF EXISTS stops_lines;
+
 
 CREATE TABLE stops_lines (
 	stop_id varchar(8) NOT NULL,
@@ -60,6 +65,32 @@ CREATE TABLE stops_lines (
     constraint fk_stops_lines_stop_id foreign key (stop_id) references bus_stops (internalid)
 
 );
+
+
+
+
+CREATE TABLE saved_routes(
+         id  SERIAL PRIMARY KEY,
+         start_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
+         end_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
+         way_pt_one varchar(16) REFERENCES bus_stops (internalid) NULL,
+         way_pt_two varchar(16) REFERENCES bus_stops (internalid) NULL,
+         private boolean NOT NULL 
+);
+
+
+
+
+CREATE TABLE routes_users(
+        route_id int NOT NULL,
+        user_id int NOT NULL,
+        permissions varchar (32) NOT NULL, --view or edit
+        
+        constraint pk_routes_users primary key (route_id, user_id),
+        constraint fk_routes_users_route_id foreign key (route_id) references saved_routes (id),
+        constraint fk_routes_users_user_id foreign key (user_id) references app_user (id)
+);
+
 
 
 
