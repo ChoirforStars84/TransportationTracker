@@ -21,7 +21,10 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </head>
-<body>
+<body><c:forEach var="stop" items="${stopList}">
+	<c:out value="Latitude: ${stop.latitude} Longitude: ${stop.longitude}" />
+	<br>
+ </c:forEach>
 <div class="bodyText">
 <p>Welcome to the Bridge City Transit Tracker. Our goal is to help you navigate the beautiful city of Pittsburgh, making the most of our Port Authority Transit system. We've endeavored to make our website easy to navigate and use so that you can spend less time planning and more time travelling!</p>
 <ul>
@@ -39,6 +42,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
  <div id="map-canvas" style="height:600px; width:750px; margin: auto;  border: 3px solid black;"></div>
  </div>
+
 </body>
 
     

@@ -43,15 +43,6 @@ public class UserController {
 	
 	@RequestMapping(path = { "/", "/homePage" })
 	public String displayHome(HttpServletRequest request) {
- /*       String busLine = request.getParameter("busLine");
-		for(Stop s : stopDao.getAllStopsOnRoute(busLine)) {
-			if(s.getRoutes().equals(busLine)) {
-				request.setAttribute("stop", s);
-				List<Stop> stopList = stopDao.getAllStopsOnRoute(busLine);
-				request.setAttribute("stopList", stopList);
-
-			} 
-		} */
 		request.setAttribute("stopList", stopDao.getAllStops());
 		return "homePage";
 	}
