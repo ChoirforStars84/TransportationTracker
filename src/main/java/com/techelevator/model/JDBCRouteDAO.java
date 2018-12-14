@@ -55,15 +55,18 @@ public class JDBCRouteDAO implements RouteDAO {
 	public List<String> getAllRouteNumsWithNamesOnly() {
 		List<String> allNumsNames = new ArrayList<String>();
 		String numAndName = null;
-		String sqlGetAllRoutes = "SELECT number, name FROM bus_lines;";
+		String sqlGetAllRoutes = "SELECT (number || name) AS num_and_name FROM bus_lines;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllRoutes);
 		while(results.next()) {
+			numAndName = results.getString("num_and_name");
+			allNumsNames.add(numAndName);
+		}
 		return null;
 	}
 
-	@Override
 	public List<Route> getAllRoutesAtStop(String stopName) {
-		// TODO Auto-generated method stub
+		List<Route> routesAtStop = new ArrayList<Route>();
+		String sqlGetRoutesAtStop = "SELECT * FROM bus_lines JOIN "
 		return null;
 	}
 
