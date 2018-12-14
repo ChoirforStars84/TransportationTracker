@@ -45,6 +45,18 @@ public class JDBCStopDAO implements StopDAO {
 		return stopsOnRoute;
 	}
 	
+	public List<Stop> getAllStops() {
+		List<Stop> allStops = new ArrayList<Stop>();
+		Stop theStop = null;
+		String sqlStopListSearch = "SELECT * FROM bus_stops;";
+		SqlRowSet allStopsResults = jdbcTemplate.queryForRowSet(sqlStopListSearch);
+		while(allStopsResults.next()) {
+			theStop = mapSqlRowToStop(allStopsResults);
+			allStops.add(theStop);
+		}
+		return allStops;
+	}
+	
 	public Stop mapSqlRowToStop(SqlRowSet results) {
 		Stop stop = new Stop();
 		stop.setInternalId(results.getString("internalid").toLowerCase());

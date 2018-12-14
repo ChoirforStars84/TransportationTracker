@@ -11,5 +11,7 @@ public interface StopDAO {
 	public List<Stop> getAllStopsOnRoute(String busLine);
 	
 	public Stop mapSqlRowToStop(SqlRowSet results);
+	
+	public List<Stop> getAllStops();
 
 }
