@@ -62,5 +62,31 @@ CREATE TABLE stops_lines (
 );
 
 
+DROP TABLE IF EXISTS routes;
+
+CREATE TABLE routes(
+         id  SERIAL PRIMARY KEY,
+         start_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
+         end_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
+         way_pt_one varchar(16) REFERENCES bus_stops (internalid) NULL,
+         way_pt_two varchar(16) REFERENCES bus_stops (internalid) NULL,
+         private boolean NOT NULL 
+);
+
+
+DROP TABLE IF EXISTS routes_users;
+
+CREATE TABLE routes_users(
+        route_id int NOT NULL,
+        user_id int NOT NULL,
+        permissions varchar (32) NOT NULL --view or edit
+        
+        constraint pk_stops_lines primary key (route_id, user_id),
+        constraint fk_stops_lines_bus_line foreign key (bus_line) references bus_lines (number),
+        constraint fk_stops_lines_stop_id foreign key (stop_id) references bus_stops (internalid)
+);
+
+
+
 
 COMMIT;
