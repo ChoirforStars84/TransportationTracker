@@ -14,6 +14,7 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css.map"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"></script>
 	    <link rel="stylesheet" href="css/site.css"></link>
+		<link rel="icon" href="img/logo.jpg">
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
