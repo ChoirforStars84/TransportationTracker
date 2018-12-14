@@ -61,13 +61,22 @@ public class JDBCRouteDAO implements RouteDAO {
 			numAndName = results.getString("num_and_name");
 			allNumsNames.add(numAndName);
 		}
-		return null;
+		return allNumsNames;
 	}
 
 	public List<Route> getAllRoutesAtStop(String stopName) {
 		List<Route> routesAtStop = new ArrayList<Route>();
-		String sqlGetRoutesAtStop = "SELECT * FROM bus_lines JOIN "
-		return null;
+		String stopNameCaps = stopName.toUpperCase();
+		String sqlGetRoutesAtStop = "SELECT * FROM bus_lines JOIN stops_lines ON stops_lines.bus_line = bus_lines.number "
+								+ "JOIN bus_stops ON bus_stops.internalid = stops_lines.stop_id "
+								+ "WHERE bus_stops.name = '?' "
+								+ "ORDER BY bus_stops.number;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetRoutesAtStop, stopNameCaps);
+		while (results.next()) {
+			Route holderRoute = mapSqlRowToRoute(results);
+			routesAtStop.add(holderRoute);
+		}
+		return routesAtStop;
 	}
 
 	public Route mapSqlRowToRoute(SqlRowSet results) {
