@@ -46,6 +46,18 @@ public class SavedRoute {
 		this.isPrivate = isPrivate;
 	}
 	
+	public String getName() {
+		String name;
+		if(wayPtOne.equals(null) && wayPtTwo.equals(null)) {
+			name = startPt + " to " + endPt;
+		} else if(wayPtTwo.equals(null)) {
+			name = startPt + " to " + endPt + ", transfer at " + wayPtOne;
+		} else {
+			name = startPt + " to " + endPt + ", transfer at " + wayPtOne + " and " + wayPtTwo;
+		}
+		return name;
+	}
+	
 	
 
 }
