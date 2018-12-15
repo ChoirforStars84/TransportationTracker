@@ -5,11 +5,11 @@ import java.util.List;
 public interface SavedRouteDAO {
 	
 	//Overloaded method as different routes may have different numbers of waypoints
-	public void saveRoute(User user, boolean isPrivate, String startPt, String endPt);
+	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt);
 	
-	public void saveRoute(User user, boolean isPrivate, String startPt, String endPt, String wayPtOne);
+	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt, String wayPtOne);
 	
-	public void saveRoute(User user, boolean isPrivate, String startPt, String endPt, String wayPtOne, String wayPtTwo);
+	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt, String wayPtOne, String wayPtTwo);
 	
 	public List<SavedRoute> getAllSavedRoutesByUser(User user);
 	
