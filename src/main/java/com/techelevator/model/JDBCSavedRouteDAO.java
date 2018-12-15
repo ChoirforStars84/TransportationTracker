@@ -144,7 +144,6 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 			String sqlSecondDelete = "DELETE FROM saved_routes WHERE route_id = ?;";
 			jdbcTemplate.update(sqlSecondDelete, routeId);
 		}
-		String sqlSecondDelete = "DELETE FROM saved_routes WHERE ";
 	}
 	
 	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results) {
