@@ -11,7 +11,8 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 	
 	public void saveRoute(User user, boolean isPrivate, String startPt, String endPt) {
 		String sqlInsertRoute = "INSERT INTO saved_routes(start_pt, end_pt, private) VALUES (?,?,?);";
-		jdbcTemplate
+		jdbcTemplate.update(sqlInsertRoute, startPt, endPt, isPrivate);
+		String userId = user.g
 	}
 	
 	public void saveRoute(User user, boolean isPrivate, String startPt, String endPt, String wayPtOne);
