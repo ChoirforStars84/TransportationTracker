@@ -21,10 +21,7 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </head>
-<body><c:forEach var="stop" items="${stopList}">
-	<c:out value="Latitude: ${stop.latitude} Longitude: ${stop.longitude}" />
-	<br>
- </c:forEach>
+<body>
 <div class="bodyText">
 <p>Welcome to the Bridge City Transit Tracker. Our goal is to help you navigate the beautiful city of Pittsburgh, making the most of our Port Authority Transit system. We've endeavored to make our website easy to navigate and use so that you can spend less time planning and more time travelling!</p>
 <ul>
@@ -33,6 +30,16 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <li>Whether you have an account or not, clicking <strong>Plan My Route</strong> will let you create a new route "on the fly" (although it can't be saved unless you login to your account!).</li>
 <li>You can also stay on this page and browse bus and light rail routes using the route menu and map below:</li>
 </ul>
+</div>
+<div>
+
+	<select name="routeNumber">
+			<c:forEach var="route" items="${routeList}">
+			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
+			</c:forEach>
+		</select>
+		
+ 
 </div>
 <div class="bodyContainer">
 	<div class="routeInputForm">

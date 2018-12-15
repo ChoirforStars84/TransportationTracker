@@ -32,7 +32,7 @@ public class UserController {
 	@Autowired
 	private StopDAO stopDao;
 	
-	
+	@Autowired
 	public RouteDAO routeDao;
 
 	@Autowired
@@ -44,6 +44,7 @@ public class UserController {
 	@RequestMapping(path = { "/", "/homePage" })
 	public String displayHome(HttpServletRequest request) {
 		request.setAttribute("stopList", stopDao.getAllStops());
+		request.setAttribute("routeList", routeDao.getAllRoutes());
 		return "homePage";
 	}
 
