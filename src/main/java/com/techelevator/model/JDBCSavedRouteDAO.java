@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,20 +53,111 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		jdbcTemplate.update(sqlInsertRoutesUsers, savedRouteId, userId, permissions);
 	}
 	
-	public List<SavedRoute> getAllSavedRoutesByUser(User user);
+	public List<SavedRoute> getAllSavedRoutesByUser(User user) {
+		List<SavedRoute> allSavedRoutesByUser = new ArrayList<SavedRoute>();
+		Long userId = user.getUserId();
+		SavedRoute holder = new SavedRoute();
+		String sqlGetRoutes = "SELECT * FROM saved_routes JOIN routes_users ON routes_users.route_id = saved_routes.id "
+							+ "WHERE routes_users.user_id = ? ORDER BY saved_routes.id;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetRoutes, userId);
+		while(results.next()) {
+			holder = mapSqlRowToSavedRoute(results);
+			allSavedRoutesByUser.add(holder);
+		}
+		return allSavedRoutesByUser;
+	}
 	
-	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt);
+	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt) {
+		SavedRoute routeByName = new SavedRoute();
+		Long userId = user.getUserId();
+		String sqlGetRoute = "SELECT * FROM saved_routes JOIN routes_users ON routes_users.route_id = saved_routes.id "
+							+ "WHERE routes_users.user_id = ? AND saved_routes.start_pt = ? AND saved_routes.end_pt = ?;";
+		SqlRowSet routeResults = jdbcTemplate.queryForRowSet(sqlGetRoute, userId, startPt, endPt);
+		while (routeResults.next()) {
+			routeByName = mapSqlRowToSavedRoute(routeResults);
+		}
+		return routeByName;
+	}
 	
-	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt, String wayPtOne);
+	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt, String wayPtOne) {
+		SavedRoute routeByName = new SavedRoute();
+		Long userId = user.getUserId();
+		String sqlGetRoute = "SELECT * FROM saved_routes JOIN routes_users ON routes_users.route_id = saved_routes.id "
+							+ "WHERE routes_users.user_id = ? AND saved_routes.start_pt = ? AND saved_routes.end_pt = ? AND way_pt_one = ?;";
+		SqlRowSet routeResults = jdbcTemplate.queryForRowSet(sqlGetRoute, userId, startPt, endPt, wayPtOne);
+		while (routeResults.next()) {
+			routeByName = mapSqlRowToSavedRoute(routeResults);
+		}
+		return routeByName;
+	}
 	
-	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt, String wayPtOne, String wayPtTwo);
+	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt, String wayPtOne, String wayPtTwo) {
+			SavedRoute routeByName = new SavedRoute();
+			Long userId = user.getUserId();
+			String sqlGetRoute = "SELECT * FROM saved_routes JOIN routes_users ON routes_users.route_id = saved_routes.id "
+								+ "WHERE routes_users.user_id = ? AND saved_routes.start_pt = ? AND saved_routes.end_pt = ? AND way_pt_one = ? AND way_pt_two = ?;";
+			SqlRowSet routeResults = jdbcTemplate.queryForRowSet(sqlGetRoute, userId, startPt, endPt, wayPtOne, wayPtTwo);
+			while (routeResults.next()) {
+				routeByName = mapSqlRowToSavedRoute(routeResults);
+			}
+			return routeByName;
+		}
 	
-	public void deleteSavedRouteByName(User user, String startPt, String endPt);
 	
-	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne);
+	public void deleteSavedRouteByName(User user, String startPt, String endPt) {
+		SavedRoute routeToDelete = getSavedRouteByName(user, startPt, endPt);
+		Long userId = user.getUserId();
+		Long routeId = routeToDelete.getId();
+		String sqlFirstDelete = "DELETE FROM routes_users WHERE route_id = ? AND user_id = ?;";
+		jdbcTemplate.update(sqlFirstDelete, userId, routeId);
+		String sqlSecondDelete = "DELETE FROM saved_routes WHERE id = ?;";
+		jdbcTemplate.update(sqlSecondDelete, routeId);
+	}
 	
-	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne, String wayPtTwo);
+	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne) {
+		SavedRoute routeToDelete = getSavedRouteByName(user, startPt, endPt, wayPtOne);
+		Long userId = user.getUserId();
+		Long routeId = routeToDelete.getId();
+		String sqlFirstDelete = "DELETE FROM routes_users WHERE route_id = ? AND user_id = ?;";
+		jdbcTemplate.update(sqlFirstDelete, userId, routeId);
+		String sqlSecondDelete = "DELETE FROM saved_routes WHERE id = ?;";
+		jdbcTemplate.update(sqlSecondDelete, routeId);
+	}
 	
-	public void deleteAllSavedRoutesUser(User user);
-
+	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne, String wayPtTwo) {
+		SavedRoute routeToDelete = getSavedRouteByName(user, startPt, endPt, wayPtOne, wayPtTwo);
+		Long userId = user.getUserId();
+		Long routeId = routeToDelete.getId();
+		String sqlFirstDelete = "DELETE FROM routes_users WHERE route_id = ? AND user_id = ?;";
+		jdbcTemplate.update(sqlFirstDelete, userId, routeId);
+		String sqlSecondDelete = "DELETE FROM saved_routes WHERE id = ?;";
+		jdbcTemplate.update(sqlSecondDelete, routeId);
+	}
+	
+	public void deleteAllSavedRoutesUser(User user) {
+		Long userId = user.getUserId();
+		List<SavedRoute> userRoutes = getAllSavedRoutesByUser(user);
+		String sqlFirstDelete = "DELETE FROM routes_users WHERE user_id = ?;";
+		jdbcTemplate.update(sqlFirstDelete, userId);
+		for(SavedRoute userRoute : userRoutes) {
+			Long routeId = userRoute.getId();
+			String sqlSecondDelete = "DELETE FROM saved_routes WHERE route_id = ?;";
+			jdbcTemplate.update(sqlSecondDelete, routeId);
+		}
+		String sqlSecondDelete = "DELETE FROM saved_routes WHERE ";
+	}
+	
+	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results) {
+		SavedRoute savedRoute = new SavedRoute();
+		savedRoute.setStartPt(results.getString("start_pt"));
+		savedRoute.setEndPt(results.getString("end_pt"));
+		savedRoute.setPrivate(results.getBoolean("private"));
+		if(!results.getString("way_pt_one").equals(null) && !results.getString("way_pt_one").isEmpty()) {
+			savedRoute.setWayPtOne(results.getString("way_pt_one"));
+		}
+		if(!results.getString("way_pt_two").equals(null) && !results.getString("way_pt_two").isEmpty()) {
+			savedRoute.setWayPtTwo(results.getString("way_pt_two"));
+		}
+		return savedRoute;
+	}
 }

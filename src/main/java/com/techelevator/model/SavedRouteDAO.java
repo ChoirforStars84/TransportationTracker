@@ -2,6 +2,8 @@ package com.techelevator.model;
 
 import java.util.List;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 public interface SavedRouteDAO {
 	
 	//Overloaded method as different routes may have different numbers of waypoints
@@ -26,6 +28,8 @@ public interface SavedRouteDAO {
 	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne, String wayPtTwo);
 	
 	public void deleteAllSavedRoutesUser(User user);
+	
+	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results);
 	
 	
 	
