@@ -35,9 +35,6 @@
 	</head>
 	<body>
 		<header>
-		<div id="bannerLogoContainer">
-			<img id="bannerLogo" src="img/appLogo.jpg" alt="BCTT Logo">
-		</div>
 		<div id="banner">
 			<p id="siteTitle">Bridge City Transit Tracker</p>
 		</div>
