@@ -75,13 +75,17 @@
 			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
 		</c:forEach>
 	</select>
-<%--	<select>
+<select name="stopNumber">
 		<c:forEach var="stop" items="${stopList}">
-			<c:if test="${fn:containsIgnoreCase(stopList.routes , routeNumber)}">
+			<c:choose>
+			<c:when test="${fn:containsIgnoreCase(stop.routes , routeNumber)}">
 				<option value="${stop.externalId}" name="stopNumber">${stop.name}</option><br>
-			</c:if>
+			</c:when>
+			</c:choose>
 		</c:forEach>
-	</select>	--%>
+		
+	</select>	
+	<input type="submit" value="Submit" id="showMap">
  
 </div>
 <div class="bodyContainer">
