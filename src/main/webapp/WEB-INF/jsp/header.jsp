@@ -39,7 +39,7 @@
 				<img id="bannerLogo" src="img/appLogo.jpg" alt="BCTT Logo">
 			</div>
 		<div id="banner">
-			<p id="siteTitle">Bridge City Transit Tracker</p>
+			<%--<p id="siteTitle">Bridge City Transit Tracker</p>--%>
 		</div>
 		</header>
 		<nav class="navbar navbar-default">
