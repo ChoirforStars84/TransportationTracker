@@ -23,7 +23,7 @@ public class JDBCStopDAO implements StopDAO {
 	public Stop getStopByName(String stopName) {
 		Stop stop = new Stop();
 		String stopNameAllCaps = stopName.toUpperCase();
-		String sqlSearchStop = "SELECT * FROM bus_stops WHERE name = '?';";
+		String sqlSearchStop = "SELECT * FROM bus_stops WHERE name = '?'";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchStop, stopNameAllCaps);
 		if(results.next()) {
 			stop = mapSqlRowToStop(results);
@@ -37,7 +37,7 @@ public class JDBCStopDAO implements StopDAO {
 		String sqlStopListSearch = "SELECT * FROM bus_stops "
 								+ "JOIN stops_lines ON stop_id.stops_lines = internalid.bus_stops "
 								+ "WHERE bus_line.stops_lines = '?' "
-								+ "ORDER BY stop_id.stops_lines;";
+								+ "ORDER BY stop_id.stops_lines";
 		SqlRowSet allStopsResults = jdbcTemplate.queryForRowSet(sqlStopListSearch, busLine);
 		while(allStopsResults.next()) {
 			theStop = mapSqlRowToStop(allStopsResults);
@@ -49,7 +49,7 @@ public class JDBCStopDAO implements StopDAO {
 	public List<Stop> getAllStops() {
 		List<Stop> allStops = new ArrayList<Stop>();
 		Stop theStop = null;
-		String sqlStopListSearch = "SELECT * FROM bus_stops;";
+		String sqlStopListSearch = "SELECT * FROM bus_stops";
 		SqlRowSet allStopsResults = jdbcTemplate.queryForRowSet(sqlStopListSearch);
 		while(allStopsResults.next()) {
 			theStop = mapSqlRowToStop(allStopsResults);
