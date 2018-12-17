@@ -85,7 +85,7 @@
 		</c:forEach>
 		
 	</select>	
-	<input type="submit" value="Submit" id="showMap">
+	<input type="submit" value="Submit" id="showMap" onclick="initMap()">
  
 </div>
 <div class="bodyContainer">
