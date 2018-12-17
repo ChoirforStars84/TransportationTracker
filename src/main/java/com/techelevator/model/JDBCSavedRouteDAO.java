@@ -3,6 +3,9 @@ package com.techelevator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -11,8 +14,13 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 	
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	public JDBCSavedRouteDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
 	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt) {
-		String sqlInsertRoute = "INSERT INTO saved_routes(start_pt, end_pt, private) VALUES (?,?,?);";
+		String sqlInsertRoute = "INSERT INTO saved_routes(start_pt, end_pt, private) VALUES (?,?,?)";
 		jdbcTemplate.update(sqlInsertRoute, startPt, endPt, isPrivate);
 		Long savedRouteId = null;;
 		String sqlQueryRoute = "SELECT id FROM saved_routes WHERE start_pt = ? AND end_pt = ?;";
