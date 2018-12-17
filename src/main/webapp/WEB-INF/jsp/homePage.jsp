@@ -1,25 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <c:import url="/WEB-INF/jsp/header.jsp" />
 <c:url var="cssHref" value="/site.css" />
 <link rel="stylesheet" type="text/css" href="${cssHref}">
 
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps&v=3.exp&sensor=false"></script>
-<script>
-var map;
-function initialize() {
-  var mapOptions = {
-    zoom: 14,
-    center: new google.maps.LatLng(40.44, -80.00)
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-}
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+          zoom: 15,
+          center: new google.maps.LatLng(40.44, -80.00),
+          mapTypeId: 'roadmap'
+        });
 
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
+        var iconBase = 'img/';
+        var icons = {
+          Stop: {
+            icon: iconBase + 'BusStop.jpg',
+            scaledSize: new google.maps.Size(64, 64)
+          },
+        };
+
+        var features = [
+          {
+            position: new google.maps.LatLng(40.44, -80.000),
+            type: 'Stop'
+          }
+        ];
+
+        // Create markers.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps&callback=initMap">
+    </script>
 </head>
 <body>
 <div class="bodyText">
@@ -34,11 +71,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div>
 
 	<select name="routeNumber">
-			<c:forEach var="route" items="${routeList}">
+		<c:forEach var="route" items="${routeList}">
 			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
-			</c:forEach>
-		</select>
-		
+		</c:forEach>
+	</select>
+<%--	<select>
+		<c:forEach var="stop" items="${stopList}">
+			<c:if test="${fn:containsIgnoreCase(stopList.routes , routeNumber)}">
+				<option value="${stop.externalId}" name="stopNumber">${stop.name}</option><br>
+			</c:if>
+		</c:forEach>
+	</select>	--%>
  
 </div>
 <div class="bodyContainer">
