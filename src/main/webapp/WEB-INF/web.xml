@@ -24,10 +24,11 @@
   	<filter-class>com.techelevator.security.AuthorizationFilter</filter-class>
   </filter>
   
-  <filter>
+  <!--<filter>
   	<filter-name>csrfFilter</filter-name>
   	<filter-class>com.techelevator.security.CSRFFilter</filter-class>
   </filter>
+  -->
   
   <filter-mapping>
   	<filter-name>authFilter</filter-name>
