@@ -22,6 +22,12 @@
 					required : true,		
 					equalTo : "#password"  
 				}
+				phoneNumber : {
+					required : false,
+					minlength: 10,
+					maxlength: 10,
+					digits: true,
+				},
 			},
 			messages : {			
 				password: {
@@ -31,6 +37,12 @@
 				confirmPassword : {
 					equalTo : "Passwords do not match"
 				}
+				phoneNumber : {
+					minlength: "Number too short, it must be ten digits long"
+					maxlength: "Number too long, it should be only ten digits long"
+					digits: "Field should only contain numerical characters 0-9"
+				}
+				
 			},
 			errorClass : "error"
 		});
@@ -48,6 +60,10 @@
 				<input type="text" id="userName" name="userName" placeHolder="User Name" class="form-control" />
 			</div>
 			<div class="form-group">
+				<label for="phoneNumber">Confirm Password: </label>
+				<input type="text" id="phoneNumber" name="phoneNumber" placeHolder="Phone Number" class="form-control" />	
+			</div>
+			<div class="form-group">
 				<label for="password">Password: </label>
 				<input type="password" id="password" name="password" placeHolder="Password" class="form-control" />
 			</div>
@@ -55,6 +71,7 @@
 				<label for="confirmPassword">Confirm Password: </label>
 				<input type="password" id="confirmPassword" name="confirmPassword" placeHolder="Re-Type Password" class="form-control" />	
 			</div>
+		
 			<button type="submit" class="btn btn-default">Create User</button>
 		</div>
 		<div class="col-sm-4"></div>
