@@ -70,7 +70,7 @@
 </div>
 <div>
 <form>
-	<select name="routeNumber">
+	<select name="routeNumber" id="routeSelect">
 		<c:forEach var="route" items="${routeList}">
 			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
 		</c:forEach>
@@ -79,11 +79,19 @@
 		<c:forEach var="stop" items="${stopList}">
 			<c:choose>
 			<c:when test="${fn:containsIgnoreCase(stop.routes , routeNumber)}">
-				<option value="${stop}" name="stop">${stop.name}</option><br>
+				<option value="${stop.name}" name="stopName">${stop.name}</option><br>
 			</c:when>
 			</c:choose>
 		</c:forEach>
-		
+		<script>
+		$("#routeSelect").on("change" , function(e) {
+			console.log($("#routeSelect").val());
+			$.get( "http://localhost:8080/capstone/routes", function( data ) {
+				  $( "#map-canvas" ).html( data );
+				  alert( "Load was performed." );
+				});
+		});
+		</script>
 	</select>	
 	<input type="submit" value="Submit" id="showMap" onclick="initMap()">
 </form>
