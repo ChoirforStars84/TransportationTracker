@@ -57,7 +57,7 @@
 						<c:url var="planNewRouteHref" value="/planRoute" />
 						<li><a href="${planNewRouteHref}">Plan a New Route</a></li>
 						<c:url var="mySavedRoutesHref" value="/savedRoutes" />
-						<li><a href="${newMessageHref}">My Saved Routes</a></li>
+						<li><a href="${mySavedRoutesHref}">My Saved Routes</a></li>
 						<c:url var="notificationSetupHref" value="/notification" />
 						<li><a href="${newMessageHref}">Notification Setup</a></li>
 						<c:url var="changePasswordHref" value="/changePassword" />

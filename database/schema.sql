@@ -71,11 +71,11 @@ CREATE TABLE stops_lines (
 
 CREATE TABLE saved_routes(
          id  SERIAL PRIMARY KEY,
-         start_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
-         end_pt varchar(16) REFERENCES bus_stops (internalid) NOT NULL,
-         way_pt_one varchar(16) REFERENCES bus_stops (internalid) NULL,
-         way_pt_two varchar(16) REFERENCES bus_stops (internalid) NULL,
-         private boolean NOT NULL 
+         start_pt varchar(256) NOT NULL,
+         end_pt varchar(256) NOT NULL,
+         way_pt_one varchar(16) NULL,
+         way_pt_two varchar(16) NULL,
+         private boolean NULL 
 );
 
 
@@ -84,7 +84,7 @@ CREATE TABLE saved_routes(
 CREATE TABLE routes_users(
         route_id int NOT NULL,
         user_id int NOT NULL,
-        permissions varchar (32) NOT NULL, --view or edit
+        permissions varchar (32) NULL, --view or edit
         
         constraint pk_routes_users primary key (route_id, user_id),
         constraint fk_routes_users_route_id foreign key (route_id) references saved_routes (id),

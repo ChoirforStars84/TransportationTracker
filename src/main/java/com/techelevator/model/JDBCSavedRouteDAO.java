@@ -8,8 +8,9 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class JDBCSavedRouteDAO implements SavedRouteDAO{
 	
 	private JdbcTemplate jdbcTemplate;
@@ -32,7 +33,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		String sqlInsertRoutesUsers = "INSERT INTO routes_users(route_id, user_id, permissions) VALUES (?,?,?);";
 		jdbcTemplate.update(sqlInsertRoutesUsers, savedRouteId, userId, permissions);
 	}
-	
+/*	
 	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt, String wayPtOne) {
 		String sqlInsertRoute = "INSERT INTO saved_routes(start_pt, end_pt, way_pt_one, private) VALUES (?,?,?,?);";
 		jdbcTemplate.update(sqlInsertRoute, startPt, endPt, wayPtOne, isPrivate);
@@ -60,7 +61,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		String sqlInsertRoutesUsers = "INSERT INTO routes_users(route_id, user_id, permissions) VALUES (?,?,?);";
 		jdbcTemplate.update(sqlInsertRoutesUsers, savedRouteId, userId, permissions);
 	}
-	
+	*/
 	public List<SavedRoute> getAllSavedRoutesByUser(User user) {
 		List<SavedRoute> allSavedRoutesByUser = new ArrayList<SavedRoute>();
 		Long userId = user.getUserId();
@@ -86,7 +87,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		}
 		return routeByName;
 	}
-	
+	/*
 	public SavedRoute getSavedRouteByName(User user, String startPt, String endPt, String wayPtOne) {
 		SavedRoute routeByName = new SavedRoute();
 		Long userId = user.getUserId();
@@ -111,7 +112,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 			return routeByName;
 		}
 	
-	
+	*/
 	public void deleteSavedRouteByName(User user, String startPt, String endPt) {
 		SavedRoute routeToDelete = getSavedRouteByName(user, startPt, endPt);
 		Long userId = user.getUserId();
@@ -121,7 +122,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		String sqlSecondDelete = "DELETE FROM saved_routes WHERE id = ?;";
 		jdbcTemplate.update(sqlSecondDelete, routeId);
 	}
-	
+	/*
 	public void deleteSavedRouteByName(User user, String startPt, String endPt, String wayPtOne) {
 		SavedRoute routeToDelete = getSavedRouteByName(user, startPt, endPt, wayPtOne);
 		Long userId = user.getUserId();
@@ -141,7 +142,7 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		String sqlSecondDelete = "DELETE FROM saved_routes WHERE id = ?;";
 		jdbcTemplate.update(sqlSecondDelete, routeId);
 	}
-	
+	*/
 	public void deleteAllSavedRoutesUser(User user) {
 		Long userId = user.getUserId();
 		List<SavedRoute> userRoutes = getAllSavedRoutesByUser(user);
@@ -159,12 +160,12 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		savedRoute.setStartPt(results.getString("start_pt"));
 		savedRoute.setEndPt(results.getString("end_pt"));
 		savedRoute.setPrivate(results.getBoolean("private"));
-		if(!results.getString("way_pt_one").equals(null) && !results.getString("way_pt_one").isEmpty()) {
+/*		if(results.getString("way_pt_one") != null || !results.getString("way_pt_one").isEmpty()) {
 			savedRoute.setWayPtOne(results.getString("way_pt_one"));
 		}
-		if(!results.getString("way_pt_two").equals(null) && !results.getString("way_pt_two").isEmpty()) {
+		if(!(results.getString("way_pt_two") != null) || !results.getString("way_pt_two").isEmpty()) {
 			savedRoute.setWayPtTwo(results.getString("way_pt_two"));
-		}
+		} */
 		return savedRoute;
 	}
 }

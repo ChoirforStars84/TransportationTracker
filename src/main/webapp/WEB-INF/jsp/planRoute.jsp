@@ -42,6 +42,10 @@
 				<input type="text" id="end" name="destinationAddress" placeHolder="987 Other St., New Place, PA, 15999" class="form-control" />
 			</div>
 			<button type="submit" class="btn btn-default">Find Route</button>
+			<c:if test="${not empty currentUser}">
+			<button type="submit" class="btn btn-default" disabled id="saveRteBtn">Save Route</button>
+			</c:if>
+			<br><br>
     <div id="map"></div>
     <script>
       function initMap() {

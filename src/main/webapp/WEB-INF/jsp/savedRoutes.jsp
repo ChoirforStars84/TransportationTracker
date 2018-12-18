@@ -11,6 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:forEach var="savedRoute" items="${savedRoutesList}">
+${savedRoute.startPt } to ${savedRoute.endPt }
 
+</c:forEach>
 </body>
 </html>
