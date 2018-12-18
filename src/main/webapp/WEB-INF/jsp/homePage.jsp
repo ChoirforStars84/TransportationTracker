@@ -21,38 +21,7 @@
       }
     </style>
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map-canvas'), {
-          zoom: 15,
-          center: new google.maps.LatLng(40.428487, -79.980435),
-          mapTypeId: 'roadmap'
-        });
-
-        var iconBase = 'img/';
-        var icons = {
-          Stop: {
-            icon: iconBase + 'BusStop.jpg',
-            scaledSize: new google.maps.Size(30, 30)
-          },
-        };
-
-        var features = [
-		{
-            position: new google.maps.LatLng(40.428487, -79.980435),
-            type: 'Stop'
-        },
-        ];
-
-        // Create markers.
-        features.forEach(function(feature) {
-          var marker = new google.maps.Marker({
-            position: feature.position,
-            icon: icons[feature.type].icon,
-            map: map
-          });
-        });
-      }
+// Section 1 JS
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps&callback=initMap">
@@ -69,37 +38,21 @@
 </ul>
 </div>
 <div>
-<form>
-	<select name="routeNumber" id="routeSelect">
-		<c:forEach var="route" items="${routeList}">
-			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
-		</c:forEach>
-	</select>
-	<select name="stopNumber">
-		<c:forEach var="stop" items="${stopList}">
-			<c:choose>
-			<c:when test="${fn:containsIgnoreCase(stop.routes , routeNumber)}">
-				<option value="${stop.name}" name="stopName">${stop.name}</option><br>
-			</c:when>
-			</c:choose>
-		</c:forEach>
-		<script>
-		$("#routeSelect").on("change" , function(e) {
-			console.log($("#routeSelect").val());
-			$.get( "http://localhost:8080/capstone/routes", function( data ) {
-				  $( "#map-canvas" ).html( data );
-				  alert( "Load was performed." );
-				});
-		});
-		</script>
-	</select>	
-	<input type="submit" value="Submit" id="showMap" onclick="initMap()">
+	<form>
+		<select name="routeNumber" id="routeSelect"></select>
+		<select name="stopNumber" id="stopSelect">
+			<option selected="true" disabled>Please Select Transit Route First</option>
+		</select>
+		
+<script>
+//Section 2 JS
+</script>
 </form>
 </div>
 <div id = "map-canvas" style = "float: center; height:600px; width:750px; margin: auto;  border: 3px solid black;"><br><br><h2>  Please Enter a Bus Route and Stop to Display Map!</h2></div>
 </body>
 
     
-    
+<script src = "js/homePageJS.js"> </script>    
 <c:import url="/WEB-INF/jsp/footer.jsp" />
     
