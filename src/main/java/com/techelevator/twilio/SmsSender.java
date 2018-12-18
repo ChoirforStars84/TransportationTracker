@@ -16,9 +16,10 @@ public class SmsSender {
         Message message = Message
                 .creator(new PhoneNumber("+14122989259"), // to
                         new PhoneNumber(SITE_HOST_NUMBER), // from
-                        "Testing SmsSender")
+                        "This is your BCTT reminder that")
                 .create();
 
         System.out.println(message.getSid());
     }
+    
 }
