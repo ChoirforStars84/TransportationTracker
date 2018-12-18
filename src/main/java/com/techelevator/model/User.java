@@ -16,6 +16,9 @@ public class User {
 	private String role;
 	private String confirmPassword;
 	
+	@Size(min=10, max=10, message="Number must contain ten digits")
+	@Pattern(regexp=".*[^0-9].*", message="Invalid character: field can only contain numbers 0-9")
+	private String phoneNumber;
 	public String getUserName() {
 		return userName;
 	}
