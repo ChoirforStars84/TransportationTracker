@@ -25,7 +25,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map-canvas'), {
           zoom: 15,
-          center: new google.maps.LatLng(40.44, -80.00),
+          center: new google.maps.LatLng(40.428487, -79.980435),
           mapTypeId: 'roadmap'
         });
 
@@ -69,26 +69,26 @@
 </ul>
 </div>
 <div>
-
+<form>
 	<select name="routeNumber">
 		<c:forEach var="route" items="${routeList}">
 			<option value="${route.routeNumber}" name="routeNumber">${route.routeNumber}: ${route.routeName}</option><br>
 		</c:forEach>
 	</select>
-<select name="stopNumber">
+	<select name="stopNumber">
 		<c:forEach var="stop" items="${stopList}">
 			<c:choose>
 			<c:when test="${fn:containsIgnoreCase(stop.routes , routeNumber)}">
-				<option value="${stop.externalId}" name="stopNumber">${stop.name}</option><br>
+				<option value="${stop}" name="stop">${stop.name}</option><br>
 			</c:when>
 			</c:choose>
 		</c:forEach>
 		
 	</select>	
 	<input type="submit" value="Submit" id="showMap" onclick="initMap()">
- 
+</form>
 </div>
-<div id = "map-canvas" style = "height:600px; width:750px; margin: auto;  border: 3px solid black;"></div>
+<div id = "map-canvas" style = "float: center; height:600px; width:750px; margin: auto;  border: 3px solid black;"><br><br><h2>  Please Enter a Bus Route and Stop to Display Map!</h2></div>
 </body>
 
     
