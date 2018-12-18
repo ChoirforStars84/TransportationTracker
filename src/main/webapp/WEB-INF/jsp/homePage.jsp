@@ -86,8 +86,10 @@
 		<script>
 		$("#routeSelect").on("change" , function(e) {
 			console.log($("#routeSelect").val());
-			//$.ajax(
-			//$(this.val());
+			$.get( "http://localhost:8080/capstone/routes", function( data ) {
+				  $( "#map-canvas" ).html( data );
+				  alert( "Load was performed." );
+				});
 		});
 		</script>
 	</select>	
