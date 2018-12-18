@@ -39,8 +39,8 @@ public class UserApiController {
 	@RequestMapping(path="/routes/{routeNumber}/{busStop}/realtime", method=RequestMethod.GET)
 	public String getArrivalTime(@PathVariable String routeNumber, @PathVariable String busStop, HttpServletResponse response) {
 		String dataFeed = "Port Authority Bus";
-		if(routeNumber == "RED" || routeNumber == "BLLB" || routeNumber == "BLSV") {
-			dataFeed = "Port Authority T"; //fix me
+		if(routeNumber.equals("RED") || routeNumber.equals("BLLB") || routeNumber.equals("BLSV")) {
+			dataFeed = "Light Rail";
 		}
 		
 		try {
@@ -105,7 +105,7 @@ public class UserApiController {
 	}	
 	
 	@RequestMapping(path="/routes/{routeNumber}", method=RequestMethod.GET)
-	public List<Stop> getStopsByRoute(@ModelAttribute String busLine) {
-		return stopDao.getAllStopsOnRoute(busLine);
+	public List<Stop> getStopsByRoute(@PathVariable String routeNumber) {
+		return stopDao.getAllStopsOnRoute(routeNumber);
 	}
 }
