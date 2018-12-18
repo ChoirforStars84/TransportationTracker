@@ -33,14 +33,13 @@ public class JDBCStopDAO implements StopDAO {
 	
 	public List<Stop> getAllStopsOnRoute(String busLine) {
 		List<Stop> stopsOnRoute = new ArrayList<Stop>();
-		Stop theStop = null;
-		String sqlStopListSearch = "SELECT * FROM bus_stops "
-								+ "JOIN stops_lines ON stop_id.stops_lines = internalid.bus_stops "
-								+ "WHERE bus_line.stops_lines = '?' "
-								+ "ORDER BY stop_id.stops_lines";
+		String sqlStopListSearch = "SELECT bus_stops.* "
+				+" FROM bus_stops JOIN stops_lines ON stops_lines.stop_id = bus_stops.internalid"
+				+" WHERE stops_lines.bus_line = ? "
+				+" ORDER BY stops_lines.stop_id;";
 		SqlRowSet allStopsResults = jdbcTemplate.queryForRowSet(sqlStopListSearch, busLine);
 		while(allStopsResults.next()) {
-			theStop = mapSqlRowToStop(allStopsResults);
+			Stop theStop = mapSqlRowToStop(allStopsResults);
 			stopsOnRoute.add(theStop);
 		}
 		return stopsOnRoute;
