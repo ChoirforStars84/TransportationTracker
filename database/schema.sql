@@ -71,11 +71,10 @@ CREATE TABLE stops_lines (
 
 CREATE TABLE saved_routes(
          id  SERIAL PRIMARY KEY,
+         user_id int NOT NULL REFERENCES app_user (id),
          start_pt varchar(256) NOT NULL,
-         end_pt varchar(256) NOT NULL,
-         way_pt_one varchar(16) NULL,
-         way_pt_two varchar(16) NULL,
-         private boolean NULL 
+         end_pt varchar(256) NOT NULL
+         
 );
 
 
