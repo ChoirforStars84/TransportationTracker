@@ -7,7 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public interface SavedRouteDAO {
 	
 	//Overloaded method as different routes may have different numbers of waypoints
-	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt);
+	public SavedRoute saveRoute(User user, String startPt, String endPt);
 	
 //	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt, String wayPtOne);
 	

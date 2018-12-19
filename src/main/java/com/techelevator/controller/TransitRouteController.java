@@ -30,9 +30,14 @@ public class TransitRouteController {
 		return "planRoute";
 	}
 	
-/*	@RequestMapping(path = "/planRoute", method=RequestMethod.POST)
- * public String saveRoute(
-*/
+	@RequestMapping(path = "/planRoute", method=RequestMethod.POST)
+	public String saveRoute(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	 	User currentUser = (User) session.getAttribute("currentUser");
+		return "redirect:/savedRoutes";
+	 	
+	}
+
 	
 	@RequestMapping("/savedRoutes")
 	public String displaySavedRoutesPage(HttpServletRequest request) {
