@@ -20,18 +20,19 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt) {
-		String sqlInsertRoute = "INSERT INTO saved_routes(start_pt, end_pt, private) VALUES (?,?,?)";
-		jdbcTemplate.update(sqlInsertRoute, startPt, endPt, isPrivate);
-		Long savedRouteId = null;;
+	public SavedRoute saveRoute(User user, String startPt, String endPt) {
+		Long userId = user.getUserId();
+		String sqlInsertRoute = "INSERT INTO saved_routes(user_id, start_pt, end_pt) VALUES (?,?,?)";
+		jdbcTemplate.update(sqlInsertRoute, userId, startPt, endPt);
+		Long savedRouteId = null;
 		String sqlQueryRoute = "SELECT id FROM saved_routes WHERE start_pt = ? AND end_pt = ?;";
 		SqlRowSet idResults = jdbcTemplate.queryForRowSet(sqlQueryRoute, startPt, endPt);
 		while(idResults.next()) {
 			savedRouteId = idResults.getLong("id");
 		}
-		Long userId = user.getUserId();
-		String sqlInsertRoutesUsers = "INSERT INTO routes_users(route_id, user_id, permissions) VALUES (?,?,?);";
-		jdbcTemplate.update(sqlInsertRoutesUsers, savedRouteId, userId, permissions);
+		SavedRoute newSavedRoute = new SavedRoute();
+		newSavedRoute.setId(savedRouteId);
+		return newSavedRoute;
 	}
 /*	
 	public void saveRoute(User user, boolean isPrivate, String permissions, String startPt, String endPt, String wayPtOne) {
@@ -157,9 +158,9 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 	
 	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results) {
 		SavedRoute savedRoute = new SavedRoute();
+		savedRoute.setUserId(results.getLong("user_id"));
 		savedRoute.setStartPt(results.getString("start_pt"));
 		savedRoute.setEndPt(results.getString("end_pt"));
-		savedRoute.setPrivate(results.getBoolean("private"));
 /*		if(results.getString("way_pt_one") != null || !results.getString("way_pt_one").isEmpty()) {
 			savedRoute.setWayPtOne(results.getString("way_pt_one"));
 		}

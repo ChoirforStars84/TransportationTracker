@@ -3,6 +3,7 @@ package com.techelevator.model;
 public class SavedRoute {
 	
 	Long id;
+	Long userId;
 	String startPt;
 	String endPt;
 	String wayPtOne;
@@ -14,6 +15,12 @@ public class SavedRoute {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	public String getStartPt() {
 		return startPt;
