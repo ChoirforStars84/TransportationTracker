@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.techelevator.model.SmsSender;
 import com.techelevator.model.UserDAO;
 
 @Controller
@@ -51,5 +52,29 @@ public class AuthenticationController {
 		model.remove("currentUser");
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping(path="/verification", method=RequestMethod.GET)
+	public String sendTextAndGoToVerificationPage(@RequestParam String phoneNumber, HttpSession session) {
+		boolean userExists = userDAO.verifyNumber(phoneNumber);
+		if(userExists == false) {
+			return "/noUserRecord";
+		} else {
+			int randomInt = SmsSender.generateTLRNumber();
+			String verificationCode = SmsSender.randomNumToString(randomInt);
+			session.setAttribute("verificationCode", verificationCode);
+			SmsSender.sendVerificationCode(phoneNumber, verificationCode);
+		}
+			return "/verification";
+	}
+	
+	@RequestMapping(path="/changePassword", method=RequestMethod.POST)
+	public String getChangePasswordFromTextVerification(@RequestParam String userVerificationCode, HttpSession session) {
+		String actualVerificationCode = (String) session.getAttribute("verificationCode");
+		if(userVerificationCode.equals(actualVerificationCode)) {
+			return "/changePassword";
+		} else {
+			return "redirect:/noUserRecord";
+		}
 	}
 }

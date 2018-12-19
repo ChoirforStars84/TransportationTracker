@@ -11,5 +11,7 @@ public interface UserDAO {
 	public User getUserByUserName(String userName);
 	
 	public void savePhoneNumber(String phoneNumber, User user);
+	
+	public boolean verifyNumber(String phoneNumber);
 
 }

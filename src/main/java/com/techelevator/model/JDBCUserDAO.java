@@ -78,5 +78,18 @@ public class JDBCUserDAO implements UserDAO {
 		String sqlUpdateNumber = "UPDATE app_user SET phone_number = ? WHERE id = ?";
 		jdbcTemplate.update(sqlUpdateNumber, phoneNumber, userId);
 	}
+	
+	public boolean verifyNumber(String phoneNumber) {
+		boolean numExists = false;
+   		String sqlQueryForNumber = "SELECT * FROM app_user WHERE phone_number = ?";
+   		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlQueryForNumber, phoneNumber);
+   		if(results.next()) {
+   			numExists = true;
+   		} else {
+   			numExists = false;
+   		}
+   		return numExists;
+   }
+   
 
 }

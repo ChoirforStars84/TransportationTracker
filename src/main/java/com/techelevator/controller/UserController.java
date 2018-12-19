@@ -68,5 +68,15 @@ public class UserController {
 		return "redirect:/login";
 	}
 	
+	@RequestMapping(path="/changePassword", method=RequestMethod.GET)
+	public String displayChangePasswordPage() {
+		return "changePassword";
+	}
+	
+	@RequestMapping(path="/sendText", method=RequestMethod.GET)
+	public String displaySendTextPage() {
+		return "sendText";
+	}
+	
 	
 }
