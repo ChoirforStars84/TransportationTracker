@@ -1,9 +1,61 @@
-
-	$("#findRteBtn").click(function(event) {
-		$("#saveRteBtn").removeAttr('disabled');
-	});
-	  
+$(document).ready(function () {
 	
+var toggleSaveRte = function(){
+	var startField = $("#start");
+	var endField = $("#end");
+	var saveBtn = $("#saveRteBtn");
+	if (startField.val() != null && startField.val() != "" && endField.val() != null && endField.val() != "") {
+		saveBtn.removeAttr('disabled');
+	} else {
+		saveBtn.attr('disabled', 'test');
+	}
+	
+};
+
+$("#start,#end").on("change", toggleSaveRte);
+
+
+
+});
+
+
+
+
+
+
+
+
+
+//$("#saveRouteForm").validate({
+//	debug : false,
+//	rules : {
+//		start : {
+//			required : true
+//		},
+//		end : {
+//			required : true
+//		}
+//	},
+//	messages : {
+//		start : {
+//			required : "Starting address is required"
+//		},
+//		end : {
+//			required : "Destination address is required"
+//		}
+//	},
+//	errorClass : "error",
+//	validClass : "valid"
+//
+//});
+
+
+//
+//	$("#findRteBtn").click(function(event) {
+//		$("#saveRteBtn").removeAttr('disabled');
+//	});
+//	  
+
 	
 // INIT MAP
 	

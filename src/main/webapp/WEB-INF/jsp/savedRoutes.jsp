@@ -11,9 +11,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div>
+TEST TEST
+<ul>
 <c:forEach var="savedRoute" items="${savedRoutesList}">
-${savedRoute.startPt } to ${savedRoute.endPt }
-
+<li><a href = "http://localhost:8080/capstone/planRoute?route_id=${savedRoute.id}">${savedRoute.startPt} to ${savedRoute.endPt}</a></li>
 </c:forEach>
+</ul>
+</div>
 </body>
 </html>

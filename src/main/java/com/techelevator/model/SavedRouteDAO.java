@@ -30,6 +30,8 @@ public interface SavedRouteDAO {
 	public void deleteAllSavedRoutesUser(User user);
 	
 	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results);
+
+	public SavedRoute getSavedRouteById(Long routeId);
 	
 	
 	

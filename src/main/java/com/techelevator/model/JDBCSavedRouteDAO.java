@@ -67,8 +67,8 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		List<SavedRoute> allSavedRoutesByUser = new ArrayList<SavedRoute>();
 		Long userId = user.getUserId();
 		SavedRoute holder = new SavedRoute();
-		String sqlGetRoutes = "SELECT * FROM saved_routes JOIN routes_users ON routes_users.route_id = saved_routes.id "
-							+ "WHERE routes_users.user_id = ? ORDER BY saved_routes.id;";
+		String sqlGetRoutes = "SELECT * FROM saved_routes "
+							+ "WHERE user_id = ? ORDER BY saved_routes.id;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetRoutes, userId);
 		while(results.next()) {
 			holder = mapSqlRowToSavedRoute(results);
@@ -156,8 +156,21 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		}
 	}
 	
+	public SavedRoute getSavedRouteById(Long routeId) {
+	
+		String sqlListRoute = "SELECT * FROM saved_routes WHERE id = ?";
+		SqlRowSet sqlRows = jdbcTemplate.queryForRowSet(sqlListRoute, routeId);
+		SavedRoute currentSavedRoute = null;
+		while (sqlRows.next()) {
+			currentSavedRoute = mapSqlRowToSavedRoute(sqlRows);
+			
+		}
+		return currentSavedRoute;
+	}
+	
 	public SavedRoute mapSqlRowToSavedRoute(SqlRowSet results) {
 		SavedRoute savedRoute = new SavedRoute();
+		savedRoute.setId(results.getLong("id"));
 		savedRoute.setUserId(results.getLong("user_id"));
 		savedRoute.setStartPt(results.getString("start_pt"));
 		savedRoute.setEndPt(results.getString("end_pt"));
@@ -169,4 +182,6 @@ public class JDBCSavedRouteDAO implements SavedRouteDAO{
 		} */
 		return savedRoute;
 	}
+
+
 }

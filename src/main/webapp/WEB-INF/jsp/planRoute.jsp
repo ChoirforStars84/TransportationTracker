@@ -33,18 +33,41 @@
     </style>
   </head>
   <body>
+  		<form action="planRoute" method="POST" id="saveRouteForm">
 			<div class="form-group">
+
+			<c:choose>
+ 			  <c:when test="${not empty startPt}">
+ 			     <c:set var="startVar" value="${startPt} " />
+ 			  </c:when>
+ 			  <c:otherwise>
+    				  <c:set var="startVar" value="" />  
+ 			  </c:otherwise>
+			</c:choose>
+			
+			
+			<c:choose>
+ 			  <c:when test="${not empty endPt}">
+ 			     <c:set var="endVar" value="${endPt} " />
+ 			  </c:when>
+ 			  <c:otherwise>
+    				  <c:set var="endVar" value="" />  
+ 			  </c:otherwise>
+			</c:choose>
+			
+			
 				<label for="startingAddress">Starting Address: </label>
-				<input type="text" id="start" name="startingAddress" placeHolder="123 Main St., Pittsburgh, PA, 15202" class="form-control" />
+				<input type="text" id="start" name="startingAddress" placeHolder="123 Main St., Pittsburgh, PA, 15202" class="form-control" value="${startVar }" />
 			</div>
 			<div class="form-group">
 				<label for="destinationAddress">Destination Address: </label>
-				<input type="text" id="end" name="destinationAddress" placeHolder="987 Other St., New Place, PA, 15999" class="form-control" />
+				<input type="text" id="end" name="destinationAddress" placeHolder="987 Other St., New Place, PA, 15999" class="form-control" value="${endVar }"/>
 			</div>
-			<button type="submit" class="btn btn-default" id="findRteBtn">Find Route</button>
+<!-- 			<button type="submit" class="btn btn-default" id="findRteBtn">Find Route</button> -->
 			<c:if test="${not empty currentUser}">
-			<button type="submit" class="btn btn-default" disabled id="saveRteBtn">Save Route</button>
+			<button type="submit" class="btn btn-default" disabled id="saveRteBtn" value="submit"> Save Route</button>
 			</c:if>
+		</form>
 			<br><br>
 
     <script async defer
