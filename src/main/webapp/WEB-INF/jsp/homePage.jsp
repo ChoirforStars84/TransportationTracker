@@ -22,10 +22,11 @@
     </style>
    
     <script>
-// Section 1 JS
+// Section 1 JS async defer
     </script>
     
-    <script async defer
+    <script 
+    
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps">
     </script>
 </head>
@@ -49,6 +50,7 @@
 <script>
 //Section 2 JS
 </script>
+<br>
 </form>
 </div>
 <div id = "map-canvas" style = "float: center; height:600px; width:750px; margin: auto;  border: 3px solid black;"><br><br><h2>  Please Enter a Bus Route and Stop to Display Map!</h2></div>
