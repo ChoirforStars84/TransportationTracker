@@ -4,8 +4,8 @@ public class SavedRoute {
 	
 	Long id;
 	Long userId;
-	String startPt;
-	String endPt;
+	public String startPt;
+	public String endPt;
 	String wayPtOne;
 	String wayPtTwo;
 	boolean isPrivate;
