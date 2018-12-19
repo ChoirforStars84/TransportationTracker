@@ -32,7 +32,7 @@ $(document).ready(function () {
 	<div class="col-sm-4">
 <p>Please enter your mobile phone number here. We will send you a text with a verification code.</p>
 <c:url var="formAction" value="/verification" />
-		<form method="POST" action="${formAction}">
+		<form method="GET" action="${formAction}">
 			<div class="form-group">
 				<input type="text" id="phoneNumber" name="phoneNumber" placeHolder="Phone Number" class="form-control"/>
 			</div>
