@@ -67,6 +67,10 @@
 				<label for="confirmPassword">Confirm Password: </label>
 				<input type="password" id="confirmPassword" name="confirmPassword" placeHolder="Re-Type Password" class="form-control" />	
 			</div>
+			<div>
+				<label for="phoneNumber">Phone Number: </label>
+				<input type="text" id="phoneNumber" name="phoneNumber" placeHolder="Ten-digit number" class="form-control" />
+			</div>
 			<button type="submit" class="btn btn-default">Create User</button>
 		</div>
 		<div class="col-sm-4"></div>
