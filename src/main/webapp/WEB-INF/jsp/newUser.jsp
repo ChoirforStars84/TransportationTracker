@@ -21,7 +21,13 @@
 				confirmPassword : {
 					required : true,		
 					equalTo : "#password"  
-				}
+				},
+				phoneNumber : {
+					required : false,
+					minlength: 10,
+					maxlength: 10,
+					digits: true,
+				},
 			},
 			messages : {			
 				password: {
@@ -30,7 +36,13 @@
 				},
 				confirmPassword : {
 					equalTo : "Passwords do not match"
-				}
+				},
+				phoneNumber : {
+					minlength: "Number too short, it must be ten digits long",
+					maxlength: "Number too long, it should be only ten digits long",
+					digits: "Field should only contain numerical characters 0-9"
+				},
+				
 			},
 			errorClass : "error"
 		});

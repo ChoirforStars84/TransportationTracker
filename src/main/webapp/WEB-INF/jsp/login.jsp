@@ -42,6 +42,7 @@
 			</div>
 			<button type="submit" class="btn btn-default">Login</button>
 		</form>
+		<p>Forgot your username or password? <a href="/capstone/sendText">Click here</a> to reset.</p> 
 	</div>
 	<div class="col-sm-4"></div>
 </div>
