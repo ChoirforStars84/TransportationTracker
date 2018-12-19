@@ -4,7 +4,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <c:import url="/WEB-INF/jsp/header.jsp" />
-<c:url var="cssHref" value="/site.css" />
+<c:url var="cssHref" value="css/site.css" />
 <link rel="stylesheet" type="text/css" href="${cssHref}">
 
     <style>
@@ -22,11 +22,12 @@
     </style>
    
     <script>
-// Section 1 JS
+// Section 1 JS async defer
     </script>
     
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps&callback=initMap">
+    <script 
+    
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps">
     </script>
 </head>
 <body>
@@ -49,9 +50,13 @@
 <script>
 //Section 2 JS
 </script>
+<br>
 </form>
 </div>
 <div id = "map-canvas" style = "float: center; height:600px; width:750px; margin: auto;  border: 3px solid black;"><br><br><h2>  Please Enter a Bus Route and Stop to Display Map!</h2></div>
+<div id = "busInfo-ETA"></div>
+<div id = "busInfo-Error"></div>
+
 </body>
 
     
