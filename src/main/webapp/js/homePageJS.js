@@ -1,16 +1,24 @@
 //Section 1
 let stopLat = 40.44;
 let stopLon = -80.00;
+let routeNum = null;
+let stopExternalId = null;
+var vehicleId = null;
 var map;
 var iconBase = 'img/';
-var icons = {
+var icons = {};
+var features =[];
+var markers = [];
 
-};
 function initMap() {
 	icons.Stop = {
 			icon: iconBase + 'BusStop.jpg',
 			scaledSize: new google.maps.Size(30, 30)
-	};  
+	}; 
+	icons.Bus = {
+			icon: iconBase + 'Bus.png',
+			scaledSize: new google.maps.Size(30, 30)			
+	};
 	map = new google.maps.Map(document.getElementById('map-canvas'), {
 		zoom: 15,
 
@@ -20,12 +28,7 @@ function initMap() {
 
 
 
-	var features = [
-//		{
-//		position: new google.maps.LatLng(stopLat, stopLon),
-//		type: 'Stop'
-//		},
-		];
+	features = [];
 
 	// Create markers.
 	features.forEach(function(feature) {
@@ -58,13 +61,13 @@ $.getJSON(url, function (data) {
 
 $("#routeSelect").on("change" , function(e) {
 	let reactiveDropdown = $('#stopSelect');
-	let routeNum = $('#routeSelect').val();
+	routeNum = $('#routeSelect').val();
 	reactiveDropdown.empty();
 	console.log(routeNum);
 
 	reactiveDropdown.append('<option selected="true" disabled>Choose Transit Stop</option>');
 	reactiveDropdown.prop('selectedIndex', 0);
-	const urlStop = 'http://localhost:8080/capstone/routes/'+routeNum;
+	let urlStop = 'http://localhost:8080/capstone/routes/'+routeNum;
 
 	$.getJSON(urlStop, function (data) {
 		window.lastStopList = data;
@@ -82,15 +85,75 @@ $("#stopSelect").on("change" , function(e) {
 			console.log("Found It");
 			stopLat = entry.latitude;
 			stopLon = entry.longitude;
+			stopExternalId = entry.externalId.toString();
 			return false;
 		}
 	})
+	features = [];
 	var point = new google.maps.LatLng(stopLat,stopLon);
 	map.setCenter(point);
-	var marker = new google.maps.Marker({
-		position: point,
-		icon: icons['Stop'].icon,
-		map: map
+	deleteMarkers();
+	addStopMarker(point);
+
+	let urlPred = 'http://localhost:8080/capstone/routes/'+ routeNum + '/' + stopExternalId + '/realtime';
+
+	$.getJSON(urlPred, function (data) {
+		$.each(data, function (key, entry) {
+			vehicleId = entry.vid;
+			console.log("The Data is: " + entry.stpnm);
+		})
 	});
+	
+	let vehicleLocationUr = 'http://localhost:8080/capstone/vehicle/'+ vehicleId +'/realtime';
+	
+	$.getJSON(vehicleLocationUr, function (data) {
+		$.each(data, function (key, entry) {
+			console.log(entry.lat + ", " + entry.lon);
+			var point = new google.maps.LatLng(entry.lat,entry.lon);
+			addBusMarker(point);
+		
+		})
+	});
+	
+	
+	
 });
+
+
+function addStopMarker(point) {
+    var marker = new google.maps.Marker({
+      position: point,
+      icon: icons['Stop'].icon,
+      map: map
+    });
+    markers.push(marker);
+  }
+
+function addBusMarker(point) {
+    var marker = new google.maps.Marker({
+      position: point,
+      icon: icons['Bus'].icon,
+      map: map
+    });
+    markers.push(marker);
+  }
+
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+function clearMarkers() {
+    setMapOnAll(null);
+  }
+
+function showMarkers() {
+    setMapOnAll(map);
+  }
+
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+  }
 

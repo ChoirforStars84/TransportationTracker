@@ -44,7 +44,7 @@ public class UserApiController {
 		}
 		
 		try {
-			// build up a url with the approprirate parameters
+			// build up a url with the appropriate parameters
 			String urlBase = 
 					UriComponentsBuilder.fromHttpUrl("http://realtime.portauthority.org/bustime/api/v3/getpredictions")
 					.queryParam("rt", routeNumber)
@@ -97,6 +97,57 @@ public class UserApiController {
  busResponse = JSON.parse(data);
  busResponse["bustime-response"];})
 .fail(function(){alert("we got an error")});*/
+	}
+	
+	@RequestMapping(path="/vehicle/{vehicleID}/realtime", method=RequestMethod.GET)
+	public String getBusInfo(@PathVariable String vehicleID, HttpServletResponse response) {
+		try {
+			// build up a url with the appropriate parameters
+			String urlBase = 
+					UriComponentsBuilder.fromHttpUrl("http://realtime.portauthority.org/bustime/api/v3/getvehicles")
+					.queryParam("vid", vehicleID)
+					.queryParam("format", "json")
+					.queryParam("key", "vVhXGttG43fhKD4zAat6d7Vv7")
+					.toUriString();
+			
+			// create a real URL object for the java networking
+			URL url = new URL(urlBase);
+			
+			// use the URL to open an HTTP connection to the api server
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			//5 seconds in ms
+			int timeoutInMs = 5000;
+			con.setConnectTimeout(timeoutInMs);
+			con.setReadTimeout(timeoutInMs);
+			
+			// get the response code from their API
+			int responseCode = con.getResponseCode();
+			
+			// if we don't get a 200 (success) back from them, mirror that to our caller
+			if(responseCode != 200) {
+				response.setStatus(responseCode);
+				return "{}";
+			}
+			
+			// read the json from their API into a string
+			StringBuffer content = new StringBuffer();
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			while((inputLine = in.readLine()) != null) {
+				content.append(inputLine);
+			}
+			in.close();
+			con.disconnect();
+			
+			//return the json to our caller 
+			return content.toString();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			response.setStatus(500);
+			return "{}";
+		}
+
 	}
 	
 	@RequestMapping(path="/routes", method=RequestMethod.GET)
