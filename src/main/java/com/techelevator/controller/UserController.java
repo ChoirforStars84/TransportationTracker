@@ -48,7 +48,7 @@ public class UserController {
 		return "homePage";
 	}
 
-	@RequestMapping(path="/users/new", method=RequestMethod.GET)
+	@RequestMapping(path="/newUser", method=RequestMethod.GET)
 	public String displayNewUserForm(ModelMap modelHolder) {
 		if( ! modelHolder.containsAttribute("user")) {
 			modelHolder.addAttribute("user", new User());
@@ -61,8 +61,8 @@ public class UserController {
 		if(result.hasErrors()) {
 			flash.addFlashAttribute("user", user);
 			flash.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "user", result);
-			return "redirect:/users/new";
-		}
+			return "redirect:/newUser";
+	}
 		
 		userDAO.saveUser(user.getUserName(), user.getPassword(), user.getPhoneNumber());
 		return "redirect:/login";
