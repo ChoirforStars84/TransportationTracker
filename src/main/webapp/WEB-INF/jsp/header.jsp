@@ -30,7 +30,7 @@
 		</script>
 		
 	</head>
-	<body>
+	<body >
 		<header>
 			<div id="bannerLogoContainer">
 				<img id="bannerLogo" src="img/appLogo.jpg" alt="BCTT Logo">

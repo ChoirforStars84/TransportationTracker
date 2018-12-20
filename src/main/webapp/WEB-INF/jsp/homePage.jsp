@@ -52,7 +52,13 @@
 </form>
 </div>
 <div id = "map-canvas" style = "float: center; height:600px; width:750px; margin: auto;  border: 3px solid black;"><br><br><h2>  Please Enter a Bus Route and Stop to Display Map!</h2></div>
-<div id = "busInfo-ETA"></div>
+<div id = "busInfo-ETA">
+<span id="PreETA-Text"></span>
+<ul id="ETA-List">
+
+</ul>
+
+</div>
 <div id = "busInfo-Error"></div>
 
 </body>

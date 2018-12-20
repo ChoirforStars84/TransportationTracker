@@ -9,6 +9,7 @@ var iconBase = 'img/';
 var icons = {};
 var features =[];
 var markers = [];
+var busCount = 1;
 
 
 //Map initialization
@@ -109,15 +110,17 @@ $("#stopSelect").on("change" , function(e) {
 	addStopMarker(point);
 
 	let urlPred = 'http://localhost:8080/capstone/routes/'+ routeNum + '/' + stopExternalId + '/realtime';
-	let busInfo = $('#busInfo-ETA');
+	let busInfo = $('#ETA-List');
 	busInfo.empty();
 	vehicleId= "";
+	busCount = 1;
+	$("#PreETA-Text").append($('<b></b>').text("Bus ETA's:"));
+	
 	$.getJSON(urlPred, function (data) {
 		$.each(data["bustime-response"].prd, function (key, entry) {
 			vehicleId += entry.vid+",";
-			console.log("The Data is: " + entry.stpnm);
-			console.log(entry.prdtm);
-			busInfo.append($('<div></div>').text("The estimated arrival time of the bus is: " + entry.prdtm));
+			busInfo.append($('<li></li>').text("Bus " + busCount + ": " + entry.prdtm));
+			busCount++;
 		});
 		
 		let vehicleLocationUrl = 'http://localhost:8080/capstone/vehicle/'+ vehicleId +'/realtime';
@@ -138,11 +141,11 @@ $("#stopSelect").on("change" , function(e) {
 			});
 		})
 		.fail(function() {
-			alert("No data found for parameter");			
+			alert("No Busses Nearby");			
 		});
 	})
 	.fail(function() {
-		alert("No data found for parameter");
+		alert("No Busses Nearby");
 	});
 });
 
