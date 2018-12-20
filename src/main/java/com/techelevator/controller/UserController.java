@@ -72,10 +72,7 @@ public class UserController {
 	
 	@RequestMapping(path="/changePassword", method=RequestMethod.GET)
 	public String displayChangePasswordPage(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-	 	User currentUser = (User) session.getAttribute("currentUser");
-	 	String phoneNumber = currentUser.getPhoneNumber();
-	 	request.setAttribute("phoneNumber", phoneNumber);
+	
 	 	
 		return "changePassword";
 	}

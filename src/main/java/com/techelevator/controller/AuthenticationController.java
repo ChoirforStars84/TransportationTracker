@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techelevator.model.SmsSender;
+import com.techelevator.model.User;
 import com.techelevator.model.UserDAO;
 
 @Controller
@@ -56,6 +58,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="/verification", method=RequestMethod.GET)
 	public String sendTextAndGoToVerificationPage(@RequestParam String phoneNumber, HttpSession session) {
+		User currentUser = (User) session.getAttribute("currentUser");
 		boolean userExists = userDAO.verifyNumber(phoneNumber);
 		if(userExists == false) {
 			return "/noUserRecord";
@@ -65,16 +68,25 @@ public class AuthenticationController {
 			session.setAttribute("verificationCode", verificationCode);
 			SmsSender.sendVerificationCode(phoneNumber, verificationCode);
 		}
-			return "/verification";
+			return "verification";
 	}
 	
 	@RequestMapping(path="/changePassword", method=RequestMethod.POST)
-	public String getChangePasswordFromTextVerification(@RequestParam String userVerificationCode, HttpSession session) {
+	public String getChangePasswordFromTextVerification(@RequestParam String userVerificationCode, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	 	User currentUser = (User) session.getAttribute("currentUser");
+	 	String phoneNumber = currentUser.getPhoneNumber();
+	 	request.setAttribute("phoneNumber", phoneNumber);
 		String actualVerificationCode = (String) session.getAttribute("verificationCode");
 		if(userVerificationCode.equals(actualVerificationCode)) {
 			return "/changePassword";
 		} else {
 			return "redirect:/noUserRecord";
 		}
+	}
+	
+	@RequestMapping("/noUserRecord")
+	public String noUserRecord() {
+		return "noUserRecord";
 	}
 }
