@@ -16,7 +16,7 @@
 				userName : {
 					required : true
 				},
-				phoneNum : {
+				phoneNumber : {
 					required : true,
 					minlength: 10,
 					maxlength: 10,
@@ -34,7 +34,7 @@
 				
 			},
 			messages : {			
-				phoneNum : {
+				phoneNumber : {
 					required: "Phone number is required",
 					minlength: "Number too short, it must be ten digits long",
 					maxlength: "Number too long, it should be only ten digits long",
@@ -66,8 +66,8 @@
 				<input type="text" id="userName" name="userName" placeHolder="User Name" class="form-control" />
 			</div>
 			<div class="form-group">
-				<label for="phoneNum">Phone Number: </label>
-				<input type="text" id="phoneNum" name="phoneNum" placeHolder="Ten-digit number" class="form-control" />
+				<label for="phoneNumber">Phone Number: </label>
+				<input type="text" id="phoneNumber" name="phoneNumber" placeHolder="Ten-digit number" class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="password">Password: </label>
