@@ -85,6 +85,20 @@ public class JDBCUserDAO implements UserDAO {
 		return thisUser;
 	}
 	
+	public User getUserByPhoneNumber(String phoneNumber) {
+		String sqlSearchForUsername ="SELECT * "+
+		"FROM app_user "+
+		"WHERE phone_number = ? ";
+
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUsername, phoneNumber); 
+		User thisUser = null;
+		while(results.next()) {
+			thisUser = mapSqlRowToUser(results);
+		}
+
+		return thisUser;
+	}
+	
 	public void savePhoneNumber(String phoneNumber, User user) {
 		Long userId = user.getUserId();
 		String sqlUpdateNumber = "UPDATE app_user SET phone_number = ? WHERE id = ?";
