@@ -8,8 +8,6 @@
 	<p>Please enter your five-digit verification code below. You will be logged-in and directed to a page where you can reset your password</p>
 		<c:url var="formAction" value="/userHome" />
 		<form method="POST" action="${formAction}">
-		<input type="hidden" name="destination" value="${param.destination}"/>
-		<input type="hidden" name="CSRF_TOKEN" value="${CSRF_TOKEN}"/>
 			<div class="form-group">
 				<input type="text" id="verificationCode" name="verificationCode" placeHolder="#####" class="form-control" />
 			</div>
