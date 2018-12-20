@@ -24,13 +24,16 @@ public class JDBCUserDAO implements UserDAO {
 	}
 	
 	@Override
-	public void saveUser(String userName, String password, String phoneNumber) {
+	public User saveUser(String userName, String password, String phoneNumber) {
 		byte[] salt = hashMaster.generateRandomSalt();
 		String hashedPassword = hashMaster.computeHash(password, salt);
 		String saltString = new String(Base64.encode(salt));
 		
 		jdbcTemplate.update("INSERT INTO app_user(user_name, password, salt, phone_number) VALUES (?, ?, ?, ?)",
 				userName, hashedPassword, saltString, phoneNumber);
+		return null;
+		
+		//change this to return user with the new user id -- see addReservation() in jdbcreservationdao from capstone 2
 	}
 
 	@Override
@@ -61,13 +64,10 @@ public class JDBCUserDAO implements UserDAO {
 		"FROM app_user "+
 		"WHERE UPPER(user_name) = ? ";
 
-		SqlRowSet user = jdbcTemplate.queryForRowSet(sqlSearchForUsername, userName.toUpperCase()); 
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUsername, userName.toUpperCase()); 
 		User thisUser = null;
-		if(user.next()) {
-			thisUser = new User();
-			thisUser.setUserId(Long.parseLong(user.getString("id")));
-			thisUser.setUserName(user.getString("user_name"));
-			thisUser.setPassword(user.getString("password"));
+		while(results.next()) {
+			thisUser = mapSqlRowToUser(results);
 		}
 
 		return thisUser;
@@ -91,5 +91,13 @@ public class JDBCUserDAO implements UserDAO {
    		return numExists;
    }
    
+	public User mapSqlRowToUser(SqlRowSet results) {
+		User currentUser = new User();
+		currentUser.setUserId(results.getLong("id"));
+		currentUser.setUserName(results.getString("user_name"));
+		currentUser.setPassword(results.getString("password"));
+		currentUser.setPhoneNumber(results.getString("phone_number"));
+		return currentUser;
+	}
 
 }

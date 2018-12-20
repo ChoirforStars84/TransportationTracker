@@ -12,7 +12,6 @@
 </head>
 <body>
 <div>
-TEST TEST
 <ul>
 <c:forEach var="savedRoute" items="${savedRoutesList}">
 <li><a href = "http://localhost:8080/capstone/planRoute?route_id=${savedRoute.id}">${savedRoute.startPt} to ${savedRoute.endPt}</a></li>
