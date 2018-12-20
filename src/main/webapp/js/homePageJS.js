@@ -13,7 +13,7 @@ var markers = [];
 
 //Map initialization
 function initMap() {
-	
+
 //Declaration of Stop Icon
 	icons.Stop = {
 			icon: iconBase + 'BusStop.jpg',
@@ -48,8 +48,7 @@ function initMap() {
 	});
 };
 
-$(document).on("ready", initMap);
-
+$(document).ready(initMap);
 
 //Making the routeSelect JavaScript drop-down object
 let dropdown = $('#routeSelect');
@@ -100,7 +99,7 @@ $("#stopSelect").on("change" , function(e) {
 			stopExternalId = entry.externalId.toString();
 			return false;
 		}
-	})
+	});
 	
 
 	features = [];
@@ -145,9 +144,6 @@ $("#stopSelect").on("change" , function(e) {
 	.fail(function() {
 		alert("No data found for parameter");
 	});
-	
-
-	
 });
 
 

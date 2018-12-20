@@ -4,15 +4,12 @@
 <html>
 	<head>
 		<title>Bridge City Transit Tracker</title>
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-	    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.js "></script>
-	    <script src="https://cdn.jsdelivr.net/jquery.timeago/1.4.1/jquery.timeago.min.js"></script>
-	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css.map"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"></script>
+	    <script type="text/javascript" src="js/jquery.min.js"></script>
+	    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	    <script type="text/javascript" src="js/additional-methods.min.js "></script>
+	    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.timeago/1.4.1/jquery.timeago.min.js"></script>
+	    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 	    <link rel="stylesheet" href="css/site.css"></link>
 		<link rel="icon" href="img/logo.jpg">
 		

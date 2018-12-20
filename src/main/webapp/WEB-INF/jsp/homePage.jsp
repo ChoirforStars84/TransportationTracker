@@ -25,7 +25,7 @@
 // Section 1 JS async defer
     </script>
     
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps" async defer>
     </script>
 </head>
 <body>
