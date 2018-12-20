@@ -27,8 +27,6 @@ import com.techelevator.model.UserDAO;
 @Controller
 public class UserController {
 
-	
-	
 	private UserDAO userDAO;
 	
 	@Autowired
@@ -71,11 +69,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(path="/changePassword", method=RequestMethod.GET)
-	public String displayChangePasswordPage(HttpServletRequest request) {
-	
-	 	
+	public String displayChangePasswordPage(HttpServletRequest request) {	 	
 		return "changePassword";
 	}
+	
 	
 	@RequestMapping(path="/sendText", method=RequestMethod.GET)
 	public String displaySendTextPage() {
