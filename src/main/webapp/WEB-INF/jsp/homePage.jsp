@@ -44,7 +44,7 @@
 		<select name="stopNumber" id="stopSelect">
 			<option selected="true" disabled>Please Select Transit Route First</option>
 		</select>
-		
+		<br><br>
 <script>
 //Section 2 JS
 </script>
