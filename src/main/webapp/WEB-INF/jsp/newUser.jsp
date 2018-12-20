@@ -31,7 +31,7 @@
 				
 			},
 			messages : {			
-				phoneNumber : {
+				phoneNum : {
 					required: "Phone number is required",
 					minlength: "Number too short, it must be ten digits long",
 					maxlength: "Number too long, it should be only ten digits long",
@@ -64,7 +64,7 @@
 			</div>
 			<div class="form-group">
 				<label for="phoneNum">Phone Number: </label>
-				<input type="text" id="phoneNum" name="phoneNum" placeHolder="Phone Number" class="form-control" />
+				<input type="text" id="phoneNum" name="phoneNum" placeHolder="Ten-digit number" class="form-control" />
 			</div>
 			<div class="form-group">
 				<label for="password">Password: </label>
@@ -73,10 +73,6 @@
 			<div class="form-group">
 				<label for="confirmPassword">Confirm Password: </label>
 				<input type="password" id="confirmPassword" name="confirmPassword" placeHolder="Re-Type Password" class="form-control" />	
-			</div>
-			<div>
-				<label for="phoneNumber">Phone Number: </label>
-				<input type="text" id="phoneNumber" name="phoneNumber" placeHolder="Ten-digit number" class="form-control" />
 			</div>
 			<button type="submit" class="btn btn-default">Create User</button>
 		</div>

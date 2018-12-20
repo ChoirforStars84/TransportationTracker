@@ -29,9 +29,21 @@ public class JDBCUserDAO implements UserDAO {
 		String hashedPassword = hashMaster.computeHash(password, salt);
 		String saltString = new String(Base64.encode(salt));
 		
-		jdbcTemplate.update("INSERT INTO app_user(user_name, password, salt, phone_number) VALUES (?, ?, ?, ?)",
-				userName, hashedPassword, saltString, phoneNumber);
-		return null;
+		String sqlSaveUser = "INSERT INTO app_user(user_name, password, salt, phone_number) VALUES (?, ?, ?, ?) RETURNING id;";
+		SqlRowSet sqlRows = jdbcTemplate.queryForRowSet(sqlSaveUser, userName, hashedPassword, saltString, phoneNumber);
+		Long newUserId = null;
+		if (sqlRows.next()) {
+			newUserId = sqlRows.getLong("id");
+		} else {
+			throw new RuntimeException("Something went wrong while getting an id for the new user");
+		}
+		User newUser = new User();
+		newUser.setUserId(newUserId);
+		
+		/*jdbcTemplate.update("INSERT INTO app_user(user_name, password, salt, phone_number) VALUES (?, ?, ?, ?)",
+				userName, hashedPassword, saltString, phoneNumber);*/
+		return newUser;
+	
 		
 		//change this to return user with the new user id -- see addReservation() in jdbcreservationdao from capstone 2
 	}
