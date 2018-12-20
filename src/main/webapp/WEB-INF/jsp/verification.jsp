@@ -6,7 +6,7 @@
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4">
 	<p>Please enter your five-digit verification code below. You will be logged-in and directed to a page where you can reset your password</p>
-		<c:url var="formAction" value="/userHome" />
+		<c:url var="formAction" value="/changePassword" />
 		<form method="POST" action="${formAction}">
 			<div class="form-group">
 				<input type="text" id="verificationCode" name="verificationCode" placeHolder="#####" class="form-control" />

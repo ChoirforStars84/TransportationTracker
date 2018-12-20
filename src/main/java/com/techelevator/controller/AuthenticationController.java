@@ -43,7 +43,7 @@ public class AuthenticationController {
 				return "redirect:/users/"+userName;
 			}*/
 			
-			return "redirect:/";		
+			return "redirect:/homePage";		
 		} else {
 			return "redirect:/login";
 		}
