@@ -13,5 +13,7 @@ public interface UserDAO {
 	public void savePhoneNumber(String phoneNumber, User user);
 	
 	public boolean verifyNumber(String phoneNumber);
+	
+	public User getUserByPhoneNumber(String phoneNumber);
 
 }

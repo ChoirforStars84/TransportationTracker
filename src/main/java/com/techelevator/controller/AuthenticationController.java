@@ -57,7 +57,17 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(path="/verification", method=RequestMethod.GET)
-	public String sendTextAndGoToVerificationPage(@RequestParam String phoneNumber, HttpSession session) {
+	public String sendTextAndGoToVerificationPage(HttpSession session) {
+		User currentUser = (User) session.getAttribute("currentUser");
+		String phoneNumber = currentUser.getPhoneNumber();
+		String verificationCode = SmsSender.generateTLRNumber();
+		session.setAttribute("verificationCode", verificationCode);
+		SmsSender.sendVerificationCode(phoneNumber, verificationCode);
+		return "verification";
+	}
+	
+	@RequestMapping(path="/externalVerify", method=RequestMethod.GET)
+	public String sendTextAndGoToExternalVerifyPage(@RequestParam String phoneNumber, HttpSession session) {
 		User currentUser = (User) session.getAttribute("currentUser");
 		boolean userExists = userDAO.verifyNumber(phoneNumber);
 		if(userExists == false) {
@@ -65,10 +75,13 @@ public class AuthenticationController {
 		} else {
 			String verificationCode = SmsSender.generateTLRNumber();
 			session.setAttribute("verificationCode", verificationCode);
+			session.setAttribute("phoneNumber", phoneNumber);
 			SmsSender.sendVerificationCode(phoneNumber, verificationCode);
 		}
-			return "verification";
+			return "externalVerify";
 	}
+	
+	
 	
 	@RequestMapping(path="/changePassword", method=RequestMethod.POST)
 	public String getChangePasswordFromTextVerification(@RequestParam String verificationCode, HttpServletRequest request) {
@@ -83,6 +96,30 @@ public class AuthenticationController {
 			return "redirect:/noUserRecord";
 		}
 	}
+	
+	@RequestMapping(path="/newPassword", method=RequestMethod.POST)
+	public String getNewPasswordFromTextVerification(@RequestParam String verificationCode, HttpSession session) {
+		String actualVerificationCode = (String) session.getAttribute("verificationCode");
+		if(!verificationCode.equals(actualVerificationCode)) {
+			return "cannotVerify";
+		} else {
+			String phoneNumber = (String) session.getAttribute("phoneNumber");
+			User currentUser = userDAO.getUserByPhoneNumber(phoneNumber);
+			session.setAttribute("currentUser", currentUser);
+			return "newPassword";
+		}
+	}
+	
+	@RequestMapping(path="/resetPassword", method=RequestMethod.POST)
+	public String getResetPasswordFromTextVerification(@RequestParam String verificationCode, HttpSession session) {
+		String actualVerificationCode = (String) session.getAttribute("verificationCode");
+		if(!verificationCode.equals(actualVerificationCode)) {
+			return "cannotVerify";
+		} else {
+			return "resetPassword";
+		}
+	}
+		
 	
 	@RequestMapping("/noUserRecord")
 	public String noUserRecord() {

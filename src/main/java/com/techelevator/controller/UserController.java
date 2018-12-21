@@ -73,11 +73,17 @@ public class UserController {
 		return "changePassword";
 	}
 	
-	
 	@RequestMapping(path="/sendText", method=RequestMethod.GET)
 	public String displaySendTextPage() {
 		return "sendText";
 	}
-	
+
+	@RequestMapping(path="/", method=RequestMethod.POST)
+	public String displayHomeAfterPasswordReset(@RequestParam String newPassword, HttpSession session) {
+		User currentUser = (User) session.getAttribute("currentUser");
+		String userName = currentUser.getUserName();
+		userDAO.updatePassword(userName, newPassword);
+		return "homePage";
+	}
 	
 }
