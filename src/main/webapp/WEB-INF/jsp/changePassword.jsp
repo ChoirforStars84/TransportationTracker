@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4">
-<p>TESTING. We will send you a text with a verification code.</p>
+<p>We will send you a text with a verification code.</p>
 <c:url var="formAction" value="/verification" />
 		<form method="GET" action="${formAction}">
 
