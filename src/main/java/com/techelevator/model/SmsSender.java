@@ -32,28 +32,12 @@ public class SmsSender {
         System.out.println(message.getSid());
     }
     
-    public static int generateTLRNumber() {
-		int randomInt = ThreadLocalRandom.current().nextInt(1, 100000);
-		return randomInt;
+    public static String generateTLRNumber() {
+		int randomInt = ThreadLocalRandom.current().nextInt(10000, 100000);
+		String randomString = Integer.toString(randomInt);
+		return randomString;
     }
-    
-    public static String randomNumToString(int randomInt) {
-    		String parseString = Integer.toString(randomInt);
-    		String randomString = "";
-    		switch (parseString.length()) {
-    		case 1 : randomString = "0000" + parseString;
-    		case 2 : randomString = "000" + parseString;
-    		case 3 : randomString = "00" + parseString;
-    		case 4 : randomString = "0" + parseString;
-    		case 5 : randomString = parseString;
-    		}
-    		return randomString;
-    }
-    
-    
-    
-    
-    
+
 
     /*public static void main(String[] args) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

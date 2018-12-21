@@ -63,8 +63,7 @@ public class AuthenticationController {
 		if(userExists == false) {
 			return "/noUserRecord";
 		} else {
-			int randomInt = SmsSender.generateTLRNumber();
-			String verificationCode = SmsSender.randomNumToString(randomInt);
+			String verificationCode = SmsSender.generateTLRNumber();
 			session.setAttribute("verificationCode", verificationCode);
 			SmsSender.sendVerificationCode(phoneNumber, verificationCode);
 		}
@@ -72,13 +71,13 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(path="/changePassword", method=RequestMethod.POST)
-	public String getChangePasswordFromTextVerification(@RequestParam String userVerificationCode, HttpServletRequest request) {
+	public String getChangePasswordFromTextVerification(@RequestParam String verificationCode, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 	 	User currentUser = (User) session.getAttribute("currentUser");
 	 	String phoneNumber = currentUser.getPhoneNumber();
 	 	request.setAttribute("phoneNumber", phoneNumber);
 		String actualVerificationCode = (String) session.getAttribute("verificationCode");
-		if(userVerificationCode.equals(actualVerificationCode)) {
+		if(verificationCode.equals(actualVerificationCode)) {
 			return "/changePassword";
 		} else {
 			return "redirect:/noUserRecord";
