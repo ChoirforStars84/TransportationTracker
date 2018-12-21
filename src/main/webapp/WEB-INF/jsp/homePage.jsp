@@ -27,8 +27,10 @@
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC57pu1DIahWyfKlxandYUiCw6Kn-jx4ps" async defer>
     </script>
+    <h1 style = "text-Align: center;">Bridge City Transit Tracker</h1>
 </head>
 <body>
+
 <div class="bodyText">
 <p>Welcome to the <strong>Bridge City Transit Tracker</strong>. Our goal is to help you navigate the beautiful city of Pittsburgh, making the most of our Port Authority Transit system. We've endeavored to make our website easy to navigate and use so that you can spend less time planning and more time travelling!</p>
 <ul>
