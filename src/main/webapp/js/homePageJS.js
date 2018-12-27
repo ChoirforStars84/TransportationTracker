@@ -57,7 +57,7 @@ dropdown.empty();
 dropdown.append('<option selected="true" disabled>Choose Transit Route</option>');
 dropdown.prop('selectedIndex', 0);
 
-const url = 'http://localhost:8080/capstone/routes';
+const url = '/routes';
 
 // Populate dropdown with list of routes
 $.getJSON(url, function (data) {
@@ -78,7 +78,7 @@ $("#routeSelect").on("change" , function(e) {
 
 	reactiveDropdown.append('<option selected="true" disabled>Choose Transit Stop</option>');
 	reactiveDropdown.prop('selectedIndex', 0);
-	let urlStop = 'http://localhost:8080/capstone/routes/'+routeNum;
+	let urlStop = '/routes/'+routeNum;
 
 //Populate dropdown with list of stops on the chosen route
 	$.getJSON(urlStop, function (data) {
@@ -109,7 +109,7 @@ $("#stopSelect").on("change" , function(e) {
 	deleteMarkers();
 	addStopMarker(point);
 
-	let urlPred = 'http://localhost:8080/capstone/routes/'+ routeNum + '/' + stopExternalId + '/realtime';
+	let urlPred = '/routes/'+ routeNum + '/' + stopExternalId + '/realtime';
 	let busInfo = $('#ETA-List');
 	busInfo.empty();
 	vehicleId= "";
@@ -123,7 +123,7 @@ $("#stopSelect").on("change" , function(e) {
 			busCount++;
 		});
 		
-		let vehicleLocationUrl = 'http://localhost:8080/capstone/vehicle/'+ vehicleId +'/realtime';
+		let vehicleLocationUrl = '/vehicle/'+ vehicleId +'/realtime';
 
 		
 		$.getJSON(vehicleLocationUrl, function (data) {
